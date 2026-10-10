@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmniPets Wiki</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand">OmniPets</div>
+        <span class="version">Wiki • Paper 1.21+</span>
+      </div>
+      <nav class="topnav">
+        <a href="#overview">Overview</a>
+        <a href="#install">Install</a>
+        <a href="#commands">Commands</a>
+        <a href="#config">Config</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="side-section">
+          <h3>Getting Started</h3>
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#install">Installation</a></li>
+            <li><a href="#first-run">First Run</a></li>
+          </ul>
+        </div>
+
+        <div class="side-section">
+          <h3>Usage</h3>
+          <ul>
+            <li><a href="#commands">Player Commands</a></li>
+            <li><a href="#admin">Admin Commands</a></li>
+            <li><a href="#behaviors">Behaviors</a></li>
+            <li><a href="#skills">Skill Trees</a></li>
+            <li><a href="#effects">Effects & Animations</a></li>
+          </ul>
+        </div>
+
+        <div class="side-section">
+          <h3>Configuration</h3>
+          <ul>
+            <li><a href="#config">Config Files</a></li>
+            <li><a href="#editor">Web Editor</a></li>
+            <li><a href="#lang">Languages</a></li>
+          </ul>
+        </div>
+
+        <div class="side-section">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section id="overview" class="card">
+          <h1>OmniPets Wiki</h1>
+          <p>
+            OmniPets is a complete pet system for Paper servers. It gives your players a
+            companion system with leveling, behaviors, skill trees, custom effects,
+            and rich interactions.
+          </p>
+          <div class="info-grid">
+            <div>
+              <h4>Supported</h4>
+              <p>Paper 1.21+</p>
+            </div>
+            <div>
+              <h4>Java</h4>
+              <p>Java 21</p>
+            </div>
+            <div>
+              <h4>Features</h4>
+              <p>Pet management, skills, editor, MySQL</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="install" class="card">
+          <h2>Installation</h2>
+          <ol>
+            <li>Build the plugin with Maven.</li>
+            <li>Generate the JAR file.</li>
+            <li>Place the file into your server's <code>plugins/</code> folder.</li>
+            <li>Start or restart the server.</li>
+            <li>Check the generated config files and adjust them for your server.</li>
+          </ol>
+
+          <div class="note">
+            <strong>Tip:</strong> If you are using MySQL, make sure your database config is valid before enabling the plugin.
+          </div>
+        </section>
+
+        <section id="first-run" class="card">
+          <h2>First Run</h2>
+          <p>On first startup, OmniPets will generate default files such as:</p>
+          <ul>
+            <li><code>config.yml</code></li>
+            <li><code>lang/</code></li>
+            <li><code>skilltrees/</code></li>
+            <li><code>effects.yml</code></li>
+            <li><code>animations.yml</code></li>
+          </ul>
+          <p>
+            After generation, review the configs and test the pet system in a safe environment
+            before using it on production servers.
+          </p>
+        </section>
+
+        <section id="commands" class="card">
+          <h2>Player Commands</h2>
+          <table>
+            <thead>
+              <tr><th>Command</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>/petinfo</code></td><td>View pet information</td></tr>
+              <tr><td><code>/petinventory</code></td><td>Open pet inventory</td></tr>
+              <tr><td><code>/petbehavior</code></td><td>Manage pet behavior</td></tr>
+              <tr><td><code>/petswitch</code></td><td>Change the active pet</td></tr>
+              <tr><td><code>/petstore</code></td><td>Open the pet store</td></tr>
+              <tr><td><code>/petname</code></td><td>Rename the pet</td></tr>
+              <tr><td><code>/petskills</code></td><td>View or manage pet skills</td></tr>
+              <tr><td><code>/petride</code></td><td>Ride your pet</td></tr>
+              <tr><td><code>/petfly</code></td><td>Fly with a pet</td></tr>
+              <tr><td><code>/petlang</code></td><td>Change language</td></tr>
+              <tr><td><code>/pettrade</code></td><td>Trade pets with another player</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="admin" class="card">
+          <h2>Admin Commands</h2>
+          <table>
+            <thead>
+              <tr><th>Command</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>/omnipets reload</code></td><td>Reload all plugin data</td></tr>
+              <tr><td><code>/omnipets types</code></td><td>List available pet types</td></tr>
+              <tr><td><code>/omnipets give &lt;player&gt; &lt;type&gt; [name]</code></td><td>Give a pet to a player</td></tr>
+              <tr><td><code>/omnipets setlevel &lt;player&gt; &lt;level&gt;</code></td><td>Set the pet level</td></tr>
+              <tr><td><code>/omnipets editor</code></td><td>Open the web editor</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="behaviors" class="card">
+          <h2>Pet Behaviors</h2>
+          <div class="tag-list">
+            <span class="tag">aggressive</span>
+            <span class="tag">farm</span>
+            <span class="tag">protect</span>
+            <span class="tag">friendly</span>
+            <span class="tag">aura-farming</span>
+          </div>
+          <p>
+            Each pet can behave differently depending on how you want it to act. For example,
+            a pet can protect the owner, gather resources, or stay calm and friendly.
+          </p>
+          <ul>
+            <li><strong>Aggressive:</strong> attacks threats and engages enemies.</li>
+            <li><strong>Farm:</strong> helps gather resources or farm efficiently.</li>
+            <li><strong>Protect:</strong> stays near the owner and defends them.</li>
+            <li><strong>Friendly:</strong> focuses on decoration and social interaction.</li>
+            <li><strong>Aura-farming:</strong> enhances area effects or passive resource gain.</li>
+          </ul>
+        </section>
+
+        <section id="skills" class="card">
+          <h2>Skill Trees</h2>
+          <p>
+            OmniPets uses a skill tree system with many possible combinations. Skills can be
+            customized by pet type, role, and requirements.
+          </p>
+          <ul>
+            <li>Define nodes and requirements in skill tree files.</li>
+            <li>Use custom effects and inherit rules for advanced progression.</li>
+            <li>Unlock skills through level progression and conditions.</li>
+          </ul>
+          <p class="note">
+            Skill trees are stored under the plugin folder and can be managed from the editor.
+          </p>
+        </section>
+
+        <section id="effects" class="card">
+          <h2>Effects and Animations</h2>
+          <p>Animations can be attached to events such as:</p>
+          <ul>
+            <li>summon</li>
+            <li>store</li>
+            <li>level-up</li>
+            <li>evolve</li>
+            <li>tame</li>
+            <li>unlock</li>
+            <li>hit</li>
+            <li>heal-owner</li>
+            <li>mount</li>
+          </ul>
+          <p>Animation presets include:</p>
+          <div class="tag-list">
+            <span class="tag">RING</span>
+            <span class="tag">SPIRAL</span>
+            <span class="tag">HELIX</span>
+            <span class="tag">BURST</span>
+            <span class="tag">SPHERE</span>
+            <span class="tag">PILLAR</span>
+            <span class="tag">BEAM</span>
+          </div>
+        </section>
+
+        <section id="editor" class="card">
+          <h2>Web Editor</h2>
+          <p>
+            The built-in web editor allows admins to manage content in a cleaner visual interface.
+          </p>
+          <ul>
+            <li>Skill trees editing</li>
+            <li>Custom effects</li>
+            <li>Animation configuration</li>
+            <li>Preview and editing for server-specific data</li>
+          </ul>
+          <p>
+            Open the editor in-game using <code>/omnipets editor</code> and configure the data from the web panel.
+          </p>
+        </section>
+
+        <section id="config" class="card">
+          <h2>Configuration</h2>
+          <p>Common config elements include:</p>
+          <ul>
+            <li>Pet type definitions</li>
+            <li>Skill tree configuration</li>
+            <li>Behavior settings</li>
+            <li>Database settings</li>
+            <li>Animation definitions</li>
+            <li>Language files</li>
+          </ul>
+          <p>
+            Use the generated config files to tune balance, interactions, visuals, and progression.
+          </p>
+        </section>
+
+        <section id="lang" class="card">
+          <h2>Languages</h2>
+          <p>
+            OmniPets supports multiple languages, including examples like Vietnamese and English.
+            You can add new language packs by creating files inside the <code>lang/</code> folder.
+          </p>
+          <ul>
+            <li><code>lang/vi.yml</code></li>
+            <li><code>lang/en.yml</code></li>
+          </ul>
+        </section>
+
+        <section id="troubleshooting" class="card">
+          <h2>Troubleshooting</h2>
+          <ul>
+            <li><strong>Plugin fails to start:</strong> Check Java version and database config.</li>
+            <li><strong>Pet not spawning:</strong> Verify the pet type exists and is enabled.</li>
+            <li><strong>Skills not working:</strong> Ensure skill tree files are valid and loaded.</li>
+            <li><strong>Effects missing:</strong> Confirm effect IDs and animation names are correct.</li>
+            <li><strong>Language not showing:</strong> Validate the language file name and formatting.</li>
+          </ul>
+        </section>
+
+        <section id="faq" class="card">
+          <h2>FAQ</h2>
+          <div class="faq-item">
+            <h3>Can I use it on a production server?</h3>
+            <p>Yes, but always test configuration changes on a backup server first.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Does it support MySQL?</h3>
+            <p>Yes. OmniPets includes MySQL-ready configuration support.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I create custom pets?</h3>
+            <p>Yes, by configuring pet types and related data files.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Does it support PlaceholderAPI?</h3>
+            <p>Yes, PlaceholderAPI integration is supported.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
