@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OmniPets Wiki - Hướng dẫn người chơi</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{bg:'var(--bg)',card:'var(--card)',ink:'var(--ink)',mute:'var(--mute)',line:'var(--line)',acc:'var(--acc)',acc2:'var(--acc2)'},fontFamily:{sans:['system-ui','-apple-system','Segoe UI','Roboto','sans-serif'],mono:['ui-monospace','Menlo','Consolas','monospace']}}}}
+</script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f7f8fb;--card:#fff;--ink:#14171f;--mute:#5b6272;--line:#e3e6ee;--acc:#7c3aed;--acc2:#0ea5a4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1017;--card:#161a24;--ink:#eef0f6;--mute:#9aa2b5;--line:#252b3a;--acc:#a78bfa;--acc2:#2dd4bf}}
+:root[data-theme="dark"]{--bg:#0d1017;--card:#161a24;--ink:#eef0f6;--mute:#9aa2b5;--line:#252b3a;--acc:#a78bfa;--acc2:#2dd4bf}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px);scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink)}
+.grad{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+section h2{font-size:1.5rem;font-weight:700;margin-bottom:.75rem}
+section p,section li{color:var(--mute);line-height:1.65}
+section p b,section li b{color:var(--ink)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,transparent);padding:1px 6px;border-radius:6px;font-size:.88em}
+.box{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.25rem}
+.tip{border-left:4px solid var(--acc2);background:color-mix(in srgb,var(--acc2) 10%,transparent);padding:.6rem 1rem;border-radius:.5rem;margin-top:.75rem}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:.55rem .75rem;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--ink)}td{color:var(--mute)}
+details{background:var(--card);border:1px solid var(--line);border-radius:.75rem;padding:.75rem 1rem;margin-bottom:.5rem}summary{cursor:pointer;font-weight:600}
+</style>
+</head>
+<body class="font-sans antialiased">
+
+<header class="sticky top-0 z-10 backdrop-blur border-b border-line" style="background:color-mix(in srgb,var(--bg) 85%,transparent)">
+  <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+    <a href="#bat-dau" class="font-bold">🐲 Omni<span class="grad">Pets</span> Wiki</a>
+    <span class="text-xs text-mute">Hướng dẫn cho người chơi · v2.0.0</span>
+  </div>
+  <nav class="lg:hidden max-w-6xl mx-auto px-4 pb-2 flex gap-2 overflow-x-auto text-sm whitespace-nowrap">
+    <a class="px-3 py-1 rounded-full border border-line" href="#bat-dau">Bắt đầu</a>
+    <a class="px-3 py-1 rounded-full border border-line" href="#thuan-hoa">Thuần hóa</a>
+    <a class="px-3 py-1 rounded-full border border-line" href="#hanh-vi">Hành vi</a>
+    <a class="px-3 py-1 rounded-full border border-line" href="#cuoi-bay">Cưỡi &amp; bay</a>
+    <a class="px-3 py-1 rounded-full border border-line" href="#ky-nang">Kỹ năng</a>
+    <a class="px-3 py-1 rounded-full border border-line" href="#giao-dich">Giao dịch</a>
+    <a class="px-3 py-1 rounded-full border border-line" href="#lenh">Lệnh</a>
+    <a class="px-3 py-1 rounded-full border border-line" href="#faq">FAQ</a>
+  </nav>
+</header>
+
+<div class="max-w-6xl mx-auto px-4 py-8 lg:grid lg:grid-cols-[220px_1fr] lg:gap-10">
+  <aside class="hidden lg:block">
+    <div class="sticky top-20 flex flex-col gap-1 text-sm">
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#bat-dau">1. Bắt đầu nhanh</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#thuan-hoa">2. Nhận pet</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#quan-ly">3. Triệu hồi &amp; cất pet</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#tuong-tac">4. Tương tác</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#do-no">5. Độ no</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#cap-do">6. Cấp độ &amp; tiến hóa</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#hanh-vi">7. Năm hành vi</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#cuoi-bay">8. Cưỡi &amp; bay</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#ba-lo">9. Ba lô</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#ky-nang">10. Cây kỹ năng</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#giao-dich">11. Giao dịch pet</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#lenh">12. Bảng lệnh</a>
+      <a class="px-3 py-1.5 rounded-lg hover:bg-card" href="#faq">13. Hỏi nhanh</a>
+    </div>
+  </aside>
+
+  <main class="space-y-12 min-w-0">
+
+    <section id="bat-dau">
+      <h1 class="text-3xl sm:text-4xl font-extrabold">Thú cưng <span class="grad">OmniPets</span></h1>
+      <p class="mt-3">Pet đi theo bạn, chiến đấu, thu hoạch nông sản, mang đồ, tiến hóa theo cấp và có cây kỹ năng riêng. Bạn có thể cưỡi, thậm chí bay trên trời.</p>
+      <div class="box mt-4">
+        <b class="text-ink">Bắt đầu trong 4 bước</b>
+        <ol class="list-decimal ml-5 mt-2 space-y-1">
+          <li>Thuần hóa một mob hoang bằng vật phẩm phù hợp (xem mục 2) hoặc nhận pet từ admin.</li>
+          <li>Gõ <code>/petstore</code>, bấm vào pet để triệu hồi.</li>
+          <li>Chọn hành vi: <code>Shift + chuột phải</code> vào pet.</li>
+          <li>Cho ăn, đánh quái cùng pet để lên cấp, rồi dùng <code>/petskills</code>.</li>
+        </ol>
+      </div>
+      <div class="tip text-sm">Các con số trong wiki là <b>giá trị mặc định</b>. Server của bạn có thể chỉnh khác, nếu thấy lệch hãy hỏi admin.</div>
+    </section>
+
+    <section id="thuan-hoa">
+      <h2>2. Nhận pet</h2>
+      <p>Cầm vật phẩm thuần hóa trong tay chính, rồi <b>chuột phải</b> vào mob hoang đúng loại. Vật phẩm bị tiêu hao dù thành công hay không.</p>
+      <div class="box scroll mt-3"><table>
+        <tr><th>Pet</th><th>Mob cần tìm</th><th>Vật phẩm</th><th>Tỉ lệ</th><th>Cưỡi</th></tr>
+        <tr><td>Capybara</td><td>Heo</td><td>Cà rốt</td><td>35%</td><td>Có</td></tr>
+        <tr><td>Chameleon</td><td>Rùa</td><td>Cỏ biển</td><td>35%</td><td>Không</td></tr>
+        <tr><td>Hồn Sói</td><td>Sói</td><td>Xương</td><td>30%</td><td>Có</td></tr>
+        <tr><td>Vẹt Trời</td><td>Vẹt</td><td>Hạt lúa mì</td><td>40%</td><td>Có, biết bay</td></tr>
+        <tr><td>Rồng Ender</td><td>Rồng Ender</td><td>Hơi thở rồng</td><td>25%</td><td>Có, bay (nếu server bật)</td></tr>
+      </table></div>
+      <p class="mt-3">Mặc định mỗi người giữ tối đa <b>3 pet</b>. Rồng Ender là tính năng thử nghiệm, thường tắt: khi bật, bạn phải đánh rồng còn dưới <b>30% máu</b> mới thuần hóa được.</p>
+    </section>
+
+    <section id="quan-ly">
+      <h2>3. Triệu hồi &amp; cất pet</h2>
+      <ul class="list-disc ml-5 space-y-1">
+        <li><code>/petstore</code> mở danh sách pet của bạn. Bấm vào pet để triệu hồi hoặc cất. Pet đang gọi sẽ phát sáng.</li>
+        <li><code>/petswitch</code> chuyển nhanh sang pet kế tiếp.</li>
+        <li>Một số server có NPC <b>PetKeeper</b>: chuột phải vào NPC để mở kho pet.</li>
+        <li>Mặc định chỉ triệu hồi <b>1 pet</b> cùng lúc. Pet tự dịch chuyển theo bạn nếu bạn chạy xa hơn khoảng 24 block.</li>
+      </ul>
+      <div class="tip text-sm">Pet không bị thương và không chết. Nếu nó biến mất do lỗi chunk, nó tự xuất hiện lại sau vài giây.</div>
+    </section>
+
+    <section id="tuong-tac">
+      <h2>4. Tương tác với pet</h2>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <div class="box"><b class="text-ink">Chuột phải (tay không)</b><p class="text-sm">Cưỡi pet, nếu pet cho phép cưỡi.</p></div>
+        <div class="box"><b class="text-ink">Shift + chuột phải</b><p class="text-sm">Mở menu chọn hành vi.</p></div>
+        <div class="box"><b class="text-ink">Chuột phải + đồ ăn</b><p class="text-sm">Cho pet ăn để tăng độ no.</p></div>
+      </div>
+      <p class="mt-3">Chỉ chủ nhân mới tương tác được với pet của mình. Gõ <code>/petinfo</code> để xem cấp, XP, hành vi, độ no, máu và sát thương.</p>
+    </section>
+
+    <section id="do-no">
+      <h2>5. Độ no</h2>
+      <p>Độ no giảm khoảng <b>2 điểm mỗi phút</b>. Khi về <b>0</b>, pet ngừng chiến đấu, farm và buff, chỉ còn đi theo bạn. Hãy cho ăn thường xuyên.</p>
+      <div class="box scroll mt-3"><table>
+        <tr><th>Thức ăn</th><th>Độ no hồi</th></tr>
+        <tr><td>Cà rốt vàng</td><td>+40</td></tr>
+        <tr><td>Thịt bò nướng</td><td>+35</td></tr>
+        <tr><td>Thịt bò sống</td><td>+20</td></tr>
+        <tr><td>Bánh mì</td><td>+15</td></tr>
+        <tr><td>Táo</td><td>+10</td></tr>
+      </table></div>
+    </section>
+
+    <section id="cap-do">
+      <h2>6. Cấp độ &amp; tiến hóa</h2>
+      <ul class="list-disc ml-5 space-y-1">
+        <li>Pet nhận XP khi nó <b>hạ quái</b> (mặc định +6), khi <b>thu hoạch</b> ở chế độ Farm và theo từng nhịp của <b>Aura Farming</b>.</li>
+        <li>Mỗi lần lên cấp bạn được <b>1 điểm kỹ năng</b>. Cấp tối đa mặc định là <b>50</b>.</li>
+        <li>Đến các mốc cấp nhất định pet <b>tiến hóa</b>: đổi kích thước (và đổi mô hình nếu server có model 3D) kèm hiệu ứng riêng.</li>
+        <li>Máu, sát thương, tốc độ tăng dần theo cấp.</li>
+      </ul>
+    </section>
+
+    <section id="hanh-vi">
+      <h2>7. Năm hành vi</h2>
+      <p>Đổi bằng <code>Shift + chuột phải</code> vào pet, hoặc <code>/petbehavior</code>, hoặc <code>/petbehavior aura-farming</code>.</p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-3">
+        <div class="box"><b class="text-ink">⚔ Aggressive</b><p class="text-sm">Tự tấn công mọi quái hostile trong khoảng 12 block quanh bạn.</p></div>
+        <div class="box"><b class="text-ink">Farm</b><p class="text-sm">Thu hoạch cây chín quanh bạn (bán kính khoảng 6 block), trồng lại bằng 1 hạt và thỉnh thoảng thúc cây lớn. Sản phẩm vào ba lô pet, đầy thì rơi xuống đất.</p></div>
+        <div class="box"><b class="text-ink">Protect</b><p class="text-sm">Chỉ ra tay với kẻ vừa đánh bạn hoặc quái đang nhắm vào bạn. Mặc định không đánh người chơi.</p></div>
+        <div class="box"><b class="text-ink">❤ Friendly</b><p class="text-sm">Chỉ đi theo làm cảnh, không chiến đấu. Phù hợp khi bạn muốn pet ngoan.</p></div>
+        <div class="box sm:col-span-2"><b class="text-ink">✦ Aura Farming</b><p class="text-sm">Pet tỏa hào quang quanh nó: buff Hồi máu và Tốc độ cho bạn khi bạn đứng trong vùng, thiêu quái xung quanh theo nhịp và tích XP đều đặn. Đứng gần pet để hưởng buff.</p></div>
+      </div>
+    </section>
+
+    <section id="cuoi-bay">
+      <h2>8. Cưỡi &amp; bay</h2>
+      <ul class="list-disc ml-5 space-y-1">
+        <li><b>Cưỡi:</b> chuột phải pet bằng tay không, hoặc <code>/petride</code>. Dùng WASD để di chuyển hướng theo góc nhìn, <code>Space</code> để nhảy, chạy nhanh (Sprint) để tăng tốc.</li>
+        <li><b>Xuống:</b> nhấn <code>Shift</code>.</li>
+        <li><b>Bay:</b> chỉ pet biết bay (như Vẹt Trời). Khi đang cưỡi gõ <code>/petfly</code> để bật/tắt. Giữ <code>Space</code> để lên, nhìn xuống rồi nhấn <code>W</code> để hạ độ cao, thả hết phím thì lơ lửng.</li>
+      </ul>
+      <div class="tip text-sm">Rồng Ender luôn ở chế độ bay khi cưỡi. Tính năng này còn thử nghiệm nên chỗ ngồi có thể hơi lệch.</div>
+    </section>
+
+    <section id="ba-lo">
+      <h2>9. Ba lô của pet</h2>
+      <p><code>/petinventory</code> (hoặc <code>/petinv</code>) mở ba lô riêng của pet đang triệu hồi. Capybara có 2 hàng, hầu hết pet khác 1 hàng, Rồng Ender 3 hàng. Đồ nằm trong ba lô được lưu cùng pet, kể cả khi bạn thoát game. Ba lô nhận hàng từ Farm và kỹ năng <b>Nhặt đồ</b>.</p>
+    </section>
+
+    <section id="ky-nang">
+      <h2>10. Cây kỹ năng</h2>
+      <p>Gõ <code>/petskills</code> để chọn cây (có nhiều trang), hoặc <code>/petskills fire_tanker</code> để mở thẳng một cây. Bấm vào node để mở khóa.</p>
+      <ul class="list-disc ml-5 space-y-1 mt-2">
+        <li><b>Giá:</b> mỗi node tốn số điểm kỹ năng ghi trong mô tả.</li>
+        <li><b>Cấp yêu cầu:</b> pet phải đủ cấp mới mở được.</li>
+        <li><b>Cần node trước:</b> phải mở các node được liệt kê trước.</li>
+        <li><b>Thay thế (nâng cấp):</b> node nâng cấp sẽ <b>thay</b> hiệu ứng của node cũ chứ không cộng dồn.</li>
+      </ul>
+      <p class="mt-3">Các hiệu ứng thường gặp:</p>
+      <div class="box scroll mt-2"><table>
+        <tr><th>Hiệu ứng</th><th>Tác dụng</th></tr>
+        <tr><td>Máu tối đa / Sát thương / Tốc độ</td><td>Tăng chỉ số của pet</td></tr>
+        <tr><td>Hồi máu chủ nhân</td><td>Hồi máu cho bạn theo chu kỳ 10 giây</td></tr>
+        <tr><td>Thiêu đốt / Làm chậm khi đánh</td><td>Đòn của pet gây cháy hoặc làm chậm mục tiêu</td></tr>
+        <tr><td>Tự nhặt đồ</td><td>Pet nhặt vật phẩm rơi gần nó vào ba lô</td></tr>
+        <tr><td>Kháng sát thương cho chủ</td><td>Bạn nhận ít sát thương hơn</td></tr>
+      </table></div>
+      <div class="tip text-sm">Server có thể thêm hiệu ứng riêng (độc, hút máu, tăng XP...). Xem mô tả trong node. <b>Lưu ý:</b> hiện chưa có chức năng hoàn điểm, hãy cân nhắc trước khi mở khóa. Mỗi loại pet chỉ dùng được một số cây nhất định.</div>
+    </section>
+
+    <section id="giao-dich">
+      <h2>11. Giao dịch pet</h2>
+      <ol class="list-decimal ml-5 space-y-1">
+        <li>Người bán <b>triệu hồi</b> pet muốn bán, rồi gõ <code>/pettrade TênNgười [giá]</code>. Bỏ trống giá là tặng miễn phí.</li>
+        <li>Người nhận có <b>60 giây</b> để gõ <code>/pettrade accept</code> hoặc <code>/pettrade deny</code>.</li>
+        <li>Pet chuyển sang người nhận cùng ba lô, cấp độ và kỹ năng. Người nhận phải còn chỗ (giới hạn số pet).</li>
+      </ol>
+      <div class="tip text-sm">Giao dịch có giá cần server có kinh tế (Vault). Cả hai người phải online. Hãy kiểm tra kỹ pet và ba lô trước khi chấp nhận.</div>
+    </section>
+
+    <section id="lenh">
+      <h2>12. Bảng lệnh</h2>
+      <div class="box scroll"><table>
+        <tr><th>Lệnh</th><th>Tác dụng</th></tr>
+        <tr><td><code>/petstore</code></td><td>Mở danh sách pet, triệu hồi hoặc cất</td></tr>
+        <tr><td><code>/petswitch</code></td><td>Chuyển sang pet kế tiếp</td></tr>
+        <tr><td><code>/petinfo</code></td><td>Xem cấp, XP, hành vi, độ no, máu, sát thương</td></tr>
+        <tr><td><code>/petbehavior [tên]</code></td><td>Mở menu hoặc đặt hành vi: aggressive, farm, protect, friendly, aura-farming</td></tr>
+        <tr><td><code>/petskills [cây]</code></td><td>Mở cây kỹ năng</td></tr>
+        <tr><td><code>/petinventory</code></td><td>Mở ba lô pet (<code>/petinv</code>)</td></tr>
+        <tr><td><code>/petname &lt;tên&gt;</code></td><td>Đổi tên pet (tối đa 24 ký tự; màu chữ chỉ khi có quyền)</td></tr>
+        <tr><td><code>/petride</code></td><td>Cưỡi pet</td></tr>
+        <tr><td><code>/petfly</code></td><td>Bật/tắt bay khi đang cưỡi pet biết bay</td></tr>
+        <tr><td><code>/pettrade &lt;người&gt; [giá]</code></td><td>Đề nghị bán hoặc tặng pet; <code>accept</code> / <code>deny</code> để trả lời</td></tr>
+        <tr><td><code>/petlang [mã]</code></td><td>Đổi ngôn ngữ: <code>vi</code>, <code>en</code> (server có thể thêm)</td></tr>
+      </table></div>
+    </section>
+
+    <section id="faq">
+      <h2>13. Hỏi nhanh</h2>
+      <details><summary>Pet của tôi không đánh quái?</summary><p class="mt-2">Kiểm tra: hành vi có đang là Friendly không, độ no có về 0 không, và quái có nằm trong bán kính quanh bạn không. Với Protect, pet chỉ ra tay khi bạn bị tấn công.</p></details>
+      <details><summary>Pet Farm không thu hoạch?</summary><p class="mt-2">Pet chỉ thu hoạch cây <b>đã chín</b> quanh bạn trong bán kính khoảng 6 block, và không làm được trong khu vực được bảo vệ mà bạn không có quyền phá block.</p></details>
+      <details><summary>Không cưỡi được pet?</summary><p class="mt-2">Chameleon không cưỡi được. Với các pet khác, hãy chuột phải bằng <b>tay không</b>. Cầm đồ ăn thì pet sẽ ăn thay vì cho cưỡi.</p></details>
+      <details><summary>Tôi gõ lệnh mà báo chưa có pet nào được triệu hồi?</summary><p class="mt-2">Dùng <code>/petstore</code> và bấm vào pet để triệu hồi trước. Hầu hết lệnh chỉ áp dụng cho pet đang được gọi ra.</p></details>
+      <details><summary>Pet có bị mất khi tôi thoát game không?</summary><p class="mt-2">Không. Pet, cấp độ, kỹ năng và ba lô được lưu lại. Pet đang triệu hồi sẽ tự xuất hiện khi bạn vào lại.</p></details>
+      <details><summary>Muốn đổi sang tiếng Anh?</summary><p class="mt-2">Gõ <code>/petlang en</code>. Mỗi người chơi chọn ngôn ngữ riêng cho mình.</p></details>
+    </section>
+
+  </main>
+</div>
+
+<footer class="border-t border-line py-8 text-center text-xs text-mute">OmniPets Wiki · v2.0.0</footer>
+</body>
+</html>
