@@ -31,8 +31,8 @@ public class SkillEffects {
         SCHEMA.put("HIT_POTION", List.of(f("potion", "Hiệu ứng lên mục tiêu", "poison", "str"), f("amplifier", "Bậc (0 = I)", "0", "num"), f("per-value", "Giây mỗi 1 điểm giá trị", "1", "num")));
         SCHEMA.put("AURA_DAMAGE", List.of(f("radius", "Bán kính", "4", "num"), f("interval", "Chu kỳ (giây)", "2", "num"),
                 f("per-value", "Sát thương mỗi 1 điểm giá trị", "1", "num"), f("particle", "Particle (tùy chọn)", "CRIT", "str")));
-        SCHEMA.put("HEAL_PET_ON_HIT", List.of(f("per-value", "Máu hồi cho pet mỗi đòn / 1 điểm", "1", "num")));
-        SCHEMA.put("XP_MULT", List.of(f("per-value", "% XP thêm mỗi 1 điểm", "1", "num")));
+        SCHEMA.put("HEAL_PET_ON_HIT", List.<String[]>of(f("per-value", "Máu hồi cho pet mỗi đòn / 1 điểm", "1", "num")));
+        SCHEMA.put("XP_MULT", List.<String[]>of(f("per-value", "% XP thêm mỗi 1 điểm", "1", "num")));
         for (String t : List.of("OWNER_POTION", "HIT_POTION", "AURA_DAMAGE", "HEAL_PET_ON_HIT")) {   // loại có thời điểm kích hoạt
             List<String[]> l = new ArrayList<>(SCHEMA.get(t));
             l.add(f("animation", "Animation khi kích hoạt (id trong tab Animations, tùy chọn)", "", "str"));
