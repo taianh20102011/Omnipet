@@ -113,3 +113,5 @@
 "admin.anim-list": "&7Animation: &f{0}"
 "admin.anim-missing": "&cKhông có animation '{0}'."
 "admin.demo-start": "&aBắt đầu demo {0} animation (mỗi cái 2 giây). Nên bật F1 để quay."
+"admin.debug-on": "&aĐã bật debug: bạn sẽ thấy pet đang làm gì ở chat. Gõ lại để tắt."
+"admin.debug-off": "&eĐã tắt debug."

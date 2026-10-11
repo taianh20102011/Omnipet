@@ -25,6 +25,7 @@ public class PetData {
     public transient long lastAttack;
     public transient Block farmTarget;
     public transient String modelId;
+    public transient int stuck;
 
     public double xpNeeded(OmniPets pl) {
         return pl.getConfig().getDouble("xp.base", 40) * Math.pow(level, 1.4);

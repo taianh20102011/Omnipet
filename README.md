@@ -1,6 +1,6 @@
-# OmniPets 2.0.0 (Paper 1.21+, Java 21)
+# OmniPets 2.0.1 (Paper 1.21+, Java 21)
 
-Build:  mvn clean package   ->  target/OmniPets-2.0.0.jar  ->  bỏ vào plugins/
+Build:  mvn clean package   ->  target/OmniPets-2.0.1.jar  ->  bỏ vào plugins/
 Lệnh:   /petinfo /petinventory /petbehavior /petswitch /petstore /petname /petskills /petride /petfly
 Admin:  /omnipets reload | types | give <người> <loại> [tên] | setlevel <người> <cấp> | editor
 Hành vi: aggressive, farm, protect, friendly, aura-farming

@@ -113,3 +113,5 @@
 "admin.anim-list": "&7Animations: &f{0}"
 "admin.anim-missing": "&cNo animation named '{0}'."
 "admin.demo-start": "&aStarting demo of {0} animations (2 seconds each). Press F1 to hide the HUD."
+"admin.debug-on": "&aDebug on: you will see what your pet is doing in chat. Run again to turn off."
+"admin.debug-off": "&eDebug off."

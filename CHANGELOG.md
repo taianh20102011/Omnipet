@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1
+- Sửa chiến đấu Aggressive/Protect: kiểm tra "chạm tới" theo hộp va chạm, tự lao tới mục tiêu khi bị kẹt, không còn lỗi khi pet khác thế giới
+- Một pet gặp lỗi không còn làm dừng cả vòng xử lý các pet khác
+- Mới: /omnipets debug - hiện pet đang làm gì (tìm mục tiêu, chạy tới, sát thương, bị plugin khác hủy)
+
 ## 2.0.0
 Bản tổng hợp toàn bộ hệ thống OmniPets.
 - 5 hành vi: Aggressive, Farm, Protect, Friendly, Aura Farming

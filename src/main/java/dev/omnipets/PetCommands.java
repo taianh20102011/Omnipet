@@ -206,6 +206,17 @@ public class PetCommands implements CommandExecutor, TabCompleter {
                     pl.tm(s, "admin.nan");
                 }
             }
+            case "debug" -> {
+                if (!(s instanceof Player dp)) {
+                    pl.tm(s, "admin.editor-console");
+                    return true;
+                }
+                if (pl.pets.debug.remove(dp.getUniqueId())) pl.tm(dp, "admin.debug-off");
+                else {
+                    pl.pets.debug.add(dp.getUniqueId());
+                    pl.tm(dp, "admin.debug-on");
+                }
+            }
             case "demo" -> {   // quay video: phát lần lượt mọi animation trước mặt người dùng
                 if (!(s instanceof Player dp)) {
                     pl.tm(s, "admin.editor-console");
@@ -262,7 +273,7 @@ public class PetCommands implements CommandExecutor, TabCompleter {
         String n = cmd.getName().toLowerCase();
         List<String> out = new ArrayList<>();
         if (n.equals("omnipets")) {
-            if (a.length == 1) out.addAll(List.of("reload", "types", "give", "setlevel", "editor", "anim", "demo"));
+            if (a.length == 1) out.addAll(List.of("reload", "types", "give", "setlevel", "editor", "anim", "demo", "debug"));
             else if (a.length == 2 && (a[0].equalsIgnoreCase("give") || a[0].equalsIgnoreCase("setlevel")))
                 Bukkit.getOnlinePlayers().forEach(p -> out.add(p.getName()));
             else if (a.length == 3 && a[0].equalsIgnoreCase("give")) out.addAll(pl.pets.typeKeys());

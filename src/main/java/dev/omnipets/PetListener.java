@@ -6,6 +6,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -76,6 +77,12 @@ public class PetListener implements Listener {
         if (d instanceof Projectile pr && pr.getShooter() instanceof Entity s) d = s;
         pl.pets.lastAttacker.put(victim.getUniqueId(), d.getUniqueId());
         pl.pets.lastAttackTime.put(victim.getUniqueId(), System.currentTimeMillis());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void petHit(EntityDamageByEntityEvent e) {
+        PetData p = pl.pets.byEntity.get(e.getDamager().getUniqueId());
+        if (p != null && e.isCancelled()) pl.pets.dbgPet(p, "&cSát thương của pet bị HỦY bởi plugin khác (EntityDamageByEntityEvent bị cancel)");
     }
 
     @EventHandler

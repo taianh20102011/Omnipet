@@ -1,5 +1,5 @@
 name: OmniPets
-version: 2.0.0
+version: 2.0.1
 main: dev.omnipets.OmniPets
 api-version: '1.21'
 softdepend: [PlaceholderAPI, ModelEngine, MythicMobs, ItemsAdder, BetterModel, Citizens, Vault]
@@ -41,7 +41,7 @@ commands:
     usage: "/pettrade <người> [giá] | accept | deny"
   omnipets:
     description: "Lệnh quản trị OmniPets"
-    usage: "/omnipets <reload|types|give|setlevel|editor|anim|demo>"
+    usage: "/omnipets <reload|types|give|setlevel|editor|anim|demo|debug>"
     aliases: [opets]
 permissions:
   omnipets.use:

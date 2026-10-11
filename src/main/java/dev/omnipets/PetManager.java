@@ -430,29 +430,61 @@ public class PetManager {
         return pl.getConfig().getBoolean("hunger.enabled", true) && p.hunger <= 0;
     }
 
+    // ---------- debug (/omnipets debug) ----------
+    public final Set<UUID> debug = new HashSet<>();
+    private final Map<UUID, Long> dbgAt = new HashMap<>();
+
+    public void dbg(Player o, String msg) {
+        if (o == null || !debug.contains(o.getUniqueId())) return;
+        if (tick - dbgAt.getOrDefault(o.getUniqueId(), -100L) < 10) return;   // tối đa ~2 dòng/giây
+        dbgAt.put(o.getUniqueId(), tick);
+        o.sendMessage(pl.c("&8[debug] &7" + msg));
+    }
+
+    public void dbgPet(PetData p, String msg) {
+        dbg(Bukkit.getPlayer(p.owner), msg);
+    }
+
     private void run() {
         tick += 5;
         for (Map.Entry<UUID, List<PetData>> e : new ArrayList<>(owned.entrySet())) {
             Player o = Bukkit.getPlayer(e.getKey());
             if (o == null || !o.isOnline()) continue;
-            for (PetData p : e.getValue()) {
-                if (!p.active) continue;
-                if (p.entity == null || !p.entity.isValid()) {
-                    if (tick % 100 == 0) spawn(o, p);   // hồi sinh nếu bị mất
-                    continue;
+            for (PetData p : new ArrayList<>(e.getValue())) {
+                try {
+                    tickPet(o, p);
+                } catch (Exception ex) {   // một pet lỗi không được làm dừng các pet khác
+                    if (tick % 200 == 0) pl.getLogger().warning("Lỗi khi xử lý pet #" + p.id + ": " + ex);
+                    dbg(o, "&cLỗi: " + ex);
                 }
-                if (tick % 1200 == 0 && pl.getConfig().getBoolean("hunger.enabled", true))
-                    p.hunger = Math.max(0, p.hunger - pl.getConfig().getDouble("hunger.decay-per-minute", 2));
-                if (riding.contains(p)) continue;
-                boolean busy = false;
-                if (!hungry(p)) {
-                    busy = behave(o, p);
-                    periodic(o, p);
-                }
-                follow(o, p, busy);
             }
         }
         if (tick % 6000 == 0) saveAll();
+    }
+
+    private void tickPet(Player o, PetData p) {
+        if (!p.active) return;
+        if (p.entity == null || !p.entity.isValid()) {
+            if (tick % 100 == 0) spawn(o, p);   // hồi sinh nếu bị mất
+            return;
+        }
+        if (tick % 1200 == 0 && pl.getConfig().getBoolean("hunger.enabled", true))
+            p.hunger = Math.max(0, p.hunger - pl.getConfig().getDouble("hunger.decay-per-minute", 2));
+        if (riding.contains(p)) return;
+        Mob m = p.entity;
+        double tp = pl.getConfig().getDouble("settings.teleport-distance", 24);
+        if (!m.getWorld().equals(o.getWorld()) || m.getLocation().distanceSquared(o.getLocation()) > tp * tp) {
+            m.teleport(o.getLocation());   // xử lý trước khi tính khoảng cách tới quái (tránh lỗi khác thế giới)
+            return;
+        }
+        boolean busy = false;
+        if (!hungry(p)) {
+            busy = behave(o, p);
+            periodic(o, p);
+        } else {
+            dbg(o, "Pet đang đói (độ no 0) nên không chiến đấu/farm. Hãy cho ăn.");
+        }
+        follow(o, p, busy);
     }
 
     private void follow(Player o, PetData p, boolean busy) {
@@ -493,8 +525,11 @@ public class PetManager {
         Mob m = p.entity;
         LivingEntity best = null;
         double bd = Double.MAX_VALUE;
+        int seen = 0;
         for (Entity e : o.getNearbyEntities(r, r, r)) {
             if (!(e instanceof LivingEntity le) || le.isDead() || le.equals(m) || byEntity.containsKey(le.getUniqueId())) continue;
+            if (!le.getWorld().equals(m.getWorld())) continue;
+            seen++;
             if (!f.test(le)) continue;
             double d = le.getLocation().distanceSquared(m.getLocation());
             if (d < bd) {
@@ -502,11 +537,27 @@ public class PetManager {
                 best = le;
             }
         }
-        if (best == null) return false;
-        if (bd > 6.25) {
+        if (best == null) {
+            p.stuck = 0;
+            dbg(o, p.behavior + ": không có mục tiêu hợp lệ (thấy " + seen + " sinh vật trong " + (int) r + " block quanh bạn)");
+            return false;
+        }
+        // "chạm tới" tính theo hộp va chạm để đúng với cả mob nhỏ lẫn mob to
+        boolean inReach = m.getBoundingBox().expand(1.2).overlaps(best.getBoundingBox());
+        if (!inReach) {
             go(m, best.getLocation(), 1.4);
+            if (++p.stuck >= 8) {   // ~2 giây không tới được -> lao thẳng tới mục tiêu
+                Location tpl = best.getLocation().clone().add(best.getLocation().getDirection().multiply(-1.2));
+                tpl.setY(best.getLocation().getY());
+                m.teleport(tpl);
+                p.stuck = 0;
+                dbg(o, "Pet bị kẹt, lao tới " + best.getType());
+            } else {
+                dbg(o, "Đang chạy tới " + best.getType() + " (cách " + String.format("%.1f", Math.sqrt(bd)) + " block)");
+            }
             return true;
         }
+        p.stuck = 0;
         if (tick - p.lastAttack >= pl.getConfig().getLong("behaviors.combat-cooldown-ticks", 20)) {
             p.lastAttack = tick;
             strike(p, best);
@@ -517,7 +568,10 @@ public class PetManager {
     private void strike(PetData p, LivingEntity t) {
         Map<String, Double> sk = pl.trees.total(p);
         p.entity.swingMainHand();
+        double hpBefore = t.getHealth();
         t.damage(damageOf(p), p.entity);
+        dbgPet(p, "đánh " + t.getType() + " " + String.format("%.1f", hpBefore) + " -> " + String.format("%.1f", t.getHealth())
+                + (t.getHealth() >= hpBefore ? " (KHÔNG mất máu: có plugin khác hủy/giảm sát thương?)" : ""));
         pl.anim.event(p, "hit", t.getLocation(), p.entity.getLocation());
         double fire = sk.getOrDefault("fire-hit", 0.0);
         if (fire > 0) {
