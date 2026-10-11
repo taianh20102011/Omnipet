@@ -1,0 +1,7 @@
+name: "&9Tanker"
+icon: SHIELD
+nodes:
+  iron_hide:  {name: "&7Da Sắt",  icon: IRON_CHESTPLATE,    cost: 1, unlock-level: 2,  effects: {health: 6}}
+  stone_skin: {name: "&7Da Đá",   icon: COBBLESTONE,        cost: 2, unlock-level: 8,  requires: [iron_hide], inherit: iron_hide, effects: {health: 14}}
+  guardian:   {name: "&9Hộ Vệ",   icon: SHIELD,             cost: 2, unlock-level: 12, requires: [iron_hide], effects: {owner-resist: 1}}
+  titan:      {name: "&bThần Giáp", icon: DIAMOND_CHESTPLATE, cost: 4, unlock-level: 25, requires: [stone_skin, guardian], effects: {health: 16, owner-resist: 1}}

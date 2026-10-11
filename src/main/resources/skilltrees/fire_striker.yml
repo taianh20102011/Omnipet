@@ -1,0 +1,10 @@
+name: "&cFire Striker"
+icon: BLAZE_POWDER
+nodes:
+  i: {name: "&cFire Striker I", icon: BLAZE_POWDER, cost: 1, unlock-level: 2, effects: {damage: 0.8}}
+  ii_a: {name: "&cFire Striker II-A", icon: IRON_SWORD, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 1.2}}
+  ii_b: {name: "&cFire Striker II-B", icon: IRON_SWORD, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 0.75, fire-hit: 1.5}}
+  iii_a: {name: "&cFire Striker III-A", icon: IRON_SWORD, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {damage: 2.4}}
+  iii_b: {name: "&cFire Striker III-B", icon: IRON_SWORD, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {damage: 1.5, fire-hit: 3}}
+  iv: {name: "&cFire Striker IV", icon: BLAZE_POWDER, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {damage: 2.6, fire-hit: 2}}
+  v: {name: "&cFire Striker V", icon: BLAZE_POWDER, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {damage: 5.2, fire-hit: 4}}

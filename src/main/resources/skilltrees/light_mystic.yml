@@ -1,0 +1,10 @@
+name: "&fLight Mystic"
+icon: GLOWSTONE_DUST
+nodes:
+  i: {name: "&fLight Mystic I", icon: GLOWSTONE_DUST, cost: 1, unlock-level: 2, effects: {heal-owner: 0.3, damage: 0.4}}
+  ii_a: {name: "&fLight Mystic II-A", icon: ENCHANTED_BOOK, cost: 1, unlock-level: 6, requires: [i], effects: {heal-owner: 0.45, damage: 0.6}}
+  ii_b: {name: "&fLight Mystic II-B", icon: ENCHANTED_BOOK, cost: 1, unlock-level: 6, requires: [i], effects: {heal-owner: 0.45}}
+  iii_a: {name: "&fLight Mystic III-A", icon: ENCHANTED_BOOK, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {heal-owner: 0.9, damage: 1.2}}
+  iii_b: {name: "&fLight Mystic III-B", icon: ENCHANTED_BOOK, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {heal-owner: 0.9}}
+  iv: {name: "&fLight Mystic IV", icon: GLOWSTONE_DUST, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {heal-owner: 1.2, damage: 0.8}}
+  v: {name: "&fLight Mystic V", icon: GLOWSTONE_DUST, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {heal-owner: 2.4, damage: 1.6}}

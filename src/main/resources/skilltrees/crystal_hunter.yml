@@ -1,0 +1,10 @@
+name: "&dCrystal Hunter"
+icon: AMETHYST_SHARD
+nodes:
+  i: {name: "&dCrystal Hunter I", icon: AMETHYST_SHARD, cost: 1, unlock-level: 2, effects: {damage: 0.5, speed: 0.008}}
+  ii_a: {name: "&dCrystal Hunter II-A", icon: BOW, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 0.75, speed: 0.012}}
+  ii_b: {name: "&dCrystal Hunter II-B", icon: BOW, cost: 1, unlock-level: 6, requires: [i], effects: {speed: 0.015}}
+  iii_a: {name: "&dCrystal Hunter III-A", icon: BOW, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {damage: 1.5, speed: 0.024}}
+  iii_b: {name: "&dCrystal Hunter III-B", icon: BOW, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {speed: 0.03}}
+  iv: {name: "&dCrystal Hunter IV", icon: AMETHYST_SHARD, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {damage: 1, speed: 0.036}}
+  v: {name: "&dCrystal Hunter V", icon: AMETHYST_SHARD, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {damage: 2, speed: 0.072}}

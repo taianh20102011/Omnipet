@@ -1,0 +1,7 @@
+name: "&cDPS"
+icon: IRON_SWORD
+nodes:
+  sharp_claws: {name: "&7Móng Sắc",   icon: FLINT,        cost: 1, unlock-level: 2,  effects: {damage: 1.5}}
+  fire_fang:   {name: "&6Nanh Lửa",   icon: BLAZE_POWDER, cost: 2, unlock-level: 8,  requires: [sharp_claws], effects: {fire-hit: 3}}
+  frost_bite:  {name: "&bCắn Băng",   icon: SNOWBALL,     cost: 2, unlock-level: 8,  requires: [sharp_claws], effects: {slow-hit: 3}}
+  predator:    {name: "&4Kẻ Săn Mồi", icon: NETHERITE_SWORD, cost: 4, unlock-level: 25, requires: [fire_fang, frost_bite], inherit: sharp_claws, effects: {damage: 5}}

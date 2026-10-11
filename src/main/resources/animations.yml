@@ -1,0 +1,29 @@
+# OmniPets - animations.yml : hiệu ứng hạt + âm thanh (chỉnh bằng web editor -> tab "Animations").
+# shape: RING, SPIRAL, HELIX, BURST, SPHERE, PILLAR, BEAM (BEAM = tia từ pet tới mục tiêu)
+# particle: tên Particle (DUST hỗ trợ color #rrggbb + size). sound: key vd entity.player.levelup
+animations:
+  summon-burst: {shape: BURST, particle: END_ROD, count: 40, duration: 10, radius: 2.0, height: 0, speed: 0.02, volume: 0.8, pitch: 1.4, size: 1, sound: entity.evoker.cast_spell}
+  store-ring: {shape: RING, particle: PORTAL, count: 30, duration: 12, radius: 1.5, height: 1.5, speed: 0.2, volume: 0.6, pitch: 0.8, size: 1, sound: entity.enderman.teleport}
+  levelup-spiral: {shape: SPIRAL, particle: TOTEM_OF_UNDYING, count: 6, duration: 30, radius: 1.0, height: 3.0, speed: 0.1, volume: 1, pitch: 1.2, size: 1, sound: entity.player.levelup}
+  evolve-pillar: {shape: PILLAR, particle: END_ROD, count: 14, duration: 40, radius: 1.2, height: 4.0, speed: 0.01, volume: 1, pitch: 1, size: 1, sound: ui.toast.challenge_complete}
+  unlock-pillar: {shape: PILLAR, particle: ENCHANT, count: 12, duration: 20, radius: 0.8, height: 2.5, speed: 0.3, volume: 0.8, pitch: 1.5, size: 1, sound: entity.experience_orb.pickup}
+  hit-slash: {shape: BEAM, particle: CRIT, count: 12, duration: 4, radius: 0, height: 0, speed: 0, volume: 0.6, pitch: 1, size: 1, sound: entity.player.attack.sweep}
+  fire-ring: {shape: RING, particle: FLAME, count: 24, duration: 12, radius: 2.5, height: 0.5, speed: 0.01, volume: 0.8, pitch: 1, size: 1, sound: entity.blaze.shoot}
+  frost-burst: {shape: BURST, particle: SNOWFLAKE, count: 30, duration: 8, radius: 1.5, height: 0, speed: 0.02, volume: 0.7, pitch: 1.3, size: 1, sound: block.glass.break}
+  heal-helix: {shape: HELIX, particle: HEART, count: 5, duration: 20, radius: 0.8, height: 2.0, speed: 0, volume: 0.7, pitch: 1.4, size: 1, sound: entity.experience_orb.pickup}
+  aura-sphere: {shape: SPHERE, particle: SOUL_FIRE_FLAME, count: 30, duration: 6, radius: 2.0, height: 0, speed: 0, volume: 0.4, pitch: 1.6, size: 1, sound: ""}
+  harvest-pop: {shape: BURST, particle: HAPPY_VILLAGER, count: 10, duration: 5, radius: 0.8, height: 0, speed: 0, volume: 0.5, pitch: 1.2, size: 1, sound: ""}
+  gold-dust-ring: {shape: RING, particle: DUST, count: 20, duration: 15, radius: 2.0, height: 1.0, speed: 0, volume: 0.5, pitch: 1.5, size: 1.2, color: "#ffc83d", sound: ""}
+# Gắn animation vào sự kiện (để trống = không phát). Mỗi loại pet có thể ghi đè bằng pets.<loại>.animations.<sự kiện>
+events:
+  summon: summon-burst
+  store: store-ring
+  level-up: levelup-spiral
+  evolve: evolve-pillar
+  unlock: unlock-pillar
+  tame: summon-burst
+  fire-hit: fire-ring
+  slow-hit: frost-burst
+  heal-owner: heal-helix
+  aura-pulse: aura-sphere
+  harvest: harvest-pop

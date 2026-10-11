@@ -1,0 +1,10 @@
+name: "&5Void Healer"
+icon: ENDER_PEARL
+nodes:
+  i: {name: "&5Void Healer I", icon: ENDER_PEARL, cost: 1, unlock-level: 2, effects: {heal-owner: 0.4}}
+  ii_a: {name: "&5Void Healer II-A", icon: GOLDEN_APPLE, cost: 1, unlock-level: 6, requires: [i], effects: {heal-owner: 0.6}}
+  ii_b: {name: "&5Void Healer II-B", icon: GOLDEN_APPLE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 4.5}}
+  iii_a: {name: "&5Void Healer III-A", icon: GOLDEN_APPLE, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {heal-owner: 1.2}}
+  iii_b: {name: "&5Void Healer III-B", icon: GOLDEN_APPLE, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {health: 9}}
+  iv: {name: "&5Void Healer IV", icon: ENDER_PEARL, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {heal-owner: 0.8, health: 6}}
+  v: {name: "&5Void Healer V", icon: ENDER_PEARL, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {heal-owner: 1.6, health: 12}}

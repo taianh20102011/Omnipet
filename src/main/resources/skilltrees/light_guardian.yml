@@ -1,0 +1,10 @@
+name: "&fLight Guardian"
+icon: GLOWSTONE_DUST
+nodes:
+  i: {name: "&fLight Guardian I", icon: GLOWSTONE_DUST, cost: 1, unlock-level: 2, effects: {health: 4}}
+  ii_a: {name: "&fLight Guardian II-A", icon: SHIELD, cost: 1, unlock-level: 6, requires: [i], effects: {health: 6}}
+  ii_b: {name: "&fLight Guardian II-B", icon: SHIELD, cost: 1, unlock-level: 6, requires: [i], effects: {owner-resist: 0.6}}
+  iii_a: {name: "&fLight Guardian III-A", icon: SHIELD, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 12}}
+  iii_b: {name: "&fLight Guardian III-B", icon: SHIELD, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {owner-resist: 1.2}}
+  iv: {name: "&fLight Guardian IV", icon: GLOWSTONE_DUST, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 8, owner-resist: 0.8}}
+  v: {name: "&fLight Guardian V", icon: GLOWSTONE_DUST, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 16, owner-resist: 1.6}}

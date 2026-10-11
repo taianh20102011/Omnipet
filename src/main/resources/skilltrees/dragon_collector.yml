@@ -1,0 +1,10 @@
+name: "&6Dragon Collector"
+icon: DRAGON_HEAD
+nodes:
+  i: {name: "&6Dragon Collector I", icon: DRAGON_HEAD, cost: 1, unlock-level: 2, effects: {auto-pickup: 2}}
+  ii_a: {name: "&6Dragon Collector II-A", icon: HOPPER, cost: 1, unlock-level: 6, requires: [i], effects: {auto-pickup: 3}}
+  ii_b: {name: "&6Dragon Collector II-B", icon: HOPPER, cost: 1, unlock-level: 6, requires: [i], effects: {speed: 0.012}}
+  iii_a: {name: "&6Dragon Collector III-A", icon: HOPPER, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {auto-pickup: 6}}
+  iii_b: {name: "&6Dragon Collector III-B", icon: HOPPER, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {speed: 0.024}}
+  iv: {name: "&6Dragon Collector IV", icon: DRAGON_HEAD, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {auto-pickup: 4, speed: 0.016}}
+  v: {name: "&6Dragon Collector V", icon: DRAGON_HEAD, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {auto-pickup: 8, speed: 0.032}}

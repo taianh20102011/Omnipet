@@ -1,0 +1,26 @@
+name: OmniPets
+version: 2.0.0
+main: dev.omnipets.OmniPets
+api-version: '1.21'
+softdepend: [PlaceholderAPI, ModelEngine, MythicMobs, ItemsAdder, BetterModel, Citizens, Vault]
+description: Thú cưng RPG - tiến hóa, cưỡi, bay, cây kỹ năng, hành vi, giao dịch và web editor
+commands:
+  petinfo: {description: Xem thông tin pet, usage: /petinfo}
+  petinventory: {description: Mở kho đồ của pet, usage: /petinventory, aliases: [petinv]}
+  petbehavior: {description: Đổi hành vi pet, usage: "/petbehavior [aggressive|farm|protect|friendly|aura-farming]"}
+  petswitch: {description: Chuyển sang pet kế tiếp, usage: /petswitch}
+  petstore: {description: Mở kho lưu trữ / triệu hồi pet, usage: /petstore}
+  petname: {description: Đổi tên pet, usage: /petname <tên>}
+  petskills: {description: Mở cây kỹ năng, usage: /petskills [cây]}
+  petride: {description: Cưỡi pet, usage: /petride}
+  petfly: {description: Bật/tắt bay khi đang cưỡi, usage: /petfly}
+  petlang: {description: Đổi ngôn ngữ, usage: /petlang [mã]}
+  pettrade: {description: Giao dịch pet, usage: "/pettrade <người> [giá] | accept | deny"}
+  omnipets: {description: Lệnh quản trị OmniPets, usage: "/omnipets <reload|types|give|setlevel|editor>", aliases: [opets]}
+permissions:
+  omnipets.use: {default: true}
+  omnipets.tame: {default: true}
+  omnipets.trade: {default: true}
+  omnipets.admin: {default: op}
+  omnipets.color: {default: op}
+  omnipets.unlimited: {default: op}

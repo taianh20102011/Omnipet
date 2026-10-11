@@ -1,0 +1,10 @@
+name: "&dCrystal Scout"
+icon: AMETHYST_SHARD
+nodes:
+  i: {name: "&dCrystal Scout I", icon: AMETHYST_SHARD, cost: 1, unlock-level: 2, effects: {speed: 0.012}}
+  ii_a: {name: "&dCrystal Scout II-A", icon: FEATHER, cost: 1, unlock-level: 6, requires: [i], effects: {speed: 0.018}}
+  ii_b: {name: "&dCrystal Scout II-B", icon: FEATHER, cost: 1, unlock-level: 6, requires: [i], effects: {auto-pickup: 3}}
+  iii_a: {name: "&dCrystal Scout III-A", icon: FEATHER, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {speed: 0.036}}
+  iii_b: {name: "&dCrystal Scout III-B", icon: FEATHER, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {auto-pickup: 6}}
+  iv: {name: "&dCrystal Scout IV", icon: AMETHYST_SHARD, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {speed: 0.024, auto-pickup: 4}}
+  v: {name: "&dCrystal Scout V", icon: AMETHYST_SHARD, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {speed: 0.048, auto-pickup: 8}}

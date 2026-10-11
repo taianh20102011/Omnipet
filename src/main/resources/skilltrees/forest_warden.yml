@@ -1,0 +1,10 @@
+name: "&aForest Warden"
+icon: OAK_SAPLING
+nodes:
+  i: {name: "&aForest Warden I", icon: OAK_SAPLING, cost: 1, unlock-level: 2, effects: {health: 3, heal-owner: 0.2}}
+  ii_a: {name: "&aForest Warden II-A", icon: NETHERITE_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 4.5, heal-owner: 0.3}}
+  ii_b: {name: "&aForest Warden II-B", icon: NETHERITE_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 0.75, owner-resist: 0.3}}
+  iii_a: {name: "&aForest Warden III-A", icon: NETHERITE_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 9, heal-owner: 0.6}}
+  iii_b: {name: "&aForest Warden III-B", icon: NETHERITE_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {damage: 1.5, owner-resist: 0.6}}
+  iv: {name: "&aForest Warden IV", icon: OAK_SAPLING, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 6, heal-owner: 0.4, damage: 1, owner-resist: 0.4}}
+  v: {name: "&aForest Warden V", icon: OAK_SAPLING, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 12, heal-owner: 0.8, damage: 2, owner-resist: 0.8}}

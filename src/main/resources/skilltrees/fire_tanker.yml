@@ -1,0 +1,10 @@
+name: "&cFire Tanker"
+icon: BLAZE_POWDER
+nodes:
+  i: {name: "&cFire Tanker I", icon: BLAZE_POWDER, cost: 1, unlock-level: 2, effects: {health: 5}}
+  ii_a: {name: "&cFire Tanker II-A", icon: IRON_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 7.5}}
+  ii_b: {name: "&cFire Tanker II-B", icon: IRON_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 4.5}}
+  iii_a: {name: "&cFire Tanker III-A", icon: IRON_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 15}}
+  iii_b: {name: "&cFire Tanker III-B", icon: IRON_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {health: 9}}
+  iv: {name: "&cFire Tanker IV", icon: BLAZE_POWDER, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 16}}
+  v: {name: "&cFire Tanker V", icon: BLAZE_POWDER, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 32}}

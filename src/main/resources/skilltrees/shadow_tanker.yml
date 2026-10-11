@@ -1,0 +1,10 @@
+name: "&8Shadow Tanker"
+icon: COAL
+nodes:
+  i: {name: "&8Shadow Tanker I", icon: COAL, cost: 1, unlock-level: 2, effects: {health: 5}}
+  ii_a: {name: "&8Shadow Tanker II-A", icon: IRON_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 7.5}}
+  ii_b: {name: "&8Shadow Tanker II-B", icon: IRON_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 4.5}}
+  iii_a: {name: "&8Shadow Tanker III-A", icon: IRON_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 15}}
+  iii_b: {name: "&8Shadow Tanker III-B", icon: IRON_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {health: 9}}
+  iv: {name: "&8Shadow Tanker IV", icon: COAL, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 16}}
+  v: {name: "&8Shadow Tanker V", icon: COAL, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 32}}

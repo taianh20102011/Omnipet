@@ -1,0 +1,10 @@
+name: "&6Dragon Striker"
+icon: DRAGON_HEAD
+nodes:
+  i: {name: "&6Dragon Striker I", icon: DRAGON_HEAD, cost: 1, unlock-level: 2, effects: {damage: 0.8}}
+  ii_a: {name: "&6Dragon Striker II-A", icon: IRON_SWORD, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 1.2}}
+  ii_b: {name: "&6Dragon Striker II-B", icon: IRON_SWORD, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 0.75}}
+  iii_a: {name: "&6Dragon Striker III-A", icon: IRON_SWORD, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {damage: 2.4}}
+  iii_b: {name: "&6Dragon Striker III-B", icon: IRON_SWORD, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {damage: 1.5}}
+  iv: {name: "&6Dragon Striker IV", icon: DRAGON_HEAD, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {damage: 2.6}}
+  v: {name: "&6Dragon Striker V", icon: DRAGON_HEAD, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {damage: 5.2}}

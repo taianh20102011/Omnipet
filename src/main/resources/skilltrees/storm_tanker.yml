@@ -1,0 +1,10 @@
+name: "&eStorm Tanker"
+icon: LIGHTNING_ROD
+nodes:
+  i: {name: "&eStorm Tanker I", icon: LIGHTNING_ROD, cost: 1, unlock-level: 2, effects: {health: 5}}
+  ii_a: {name: "&eStorm Tanker II-A", icon: IRON_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 7.5}}
+  ii_b: {name: "&eStorm Tanker II-B", icon: IRON_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 4.5}}
+  iii_a: {name: "&eStorm Tanker III-A", icon: IRON_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 15}}
+  iii_b: {name: "&eStorm Tanker III-B", icon: IRON_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {health: 9}}
+  iv: {name: "&eStorm Tanker IV", icon: LIGHTNING_ROD, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 16}}
+  v: {name: "&eStorm Tanker V", icon: LIGHTNING_ROD, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 32}}

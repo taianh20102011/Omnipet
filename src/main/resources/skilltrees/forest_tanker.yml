@@ -1,0 +1,10 @@
+name: "&aForest Tanker"
+icon: OAK_SAPLING
+nodes:
+  i: {name: "&aForest Tanker I", icon: OAK_SAPLING, cost: 1, unlock-level: 2, effects: {health: 5}}
+  ii_a: {name: "&aForest Tanker II-A", icon: IRON_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 7.5}}
+  ii_b: {name: "&aForest Tanker II-B", icon: IRON_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 4.5}}
+  iii_a: {name: "&aForest Tanker III-A", icon: IRON_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 15}}
+  iii_b: {name: "&aForest Tanker III-B", icon: IRON_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {health: 9}}
+  iv: {name: "&aForest Tanker IV", icon: OAK_SAPLING, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 16}}
+  v: {name: "&aForest Tanker V", icon: OAK_SAPLING, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 32}}

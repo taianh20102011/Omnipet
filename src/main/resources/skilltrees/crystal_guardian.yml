@@ -1,0 +1,10 @@
+name: "&dCrystal Guardian"
+icon: AMETHYST_SHARD
+nodes:
+  i: {name: "&dCrystal Guardian I", icon: AMETHYST_SHARD, cost: 1, unlock-level: 2, effects: {health: 4}}
+  ii_a: {name: "&dCrystal Guardian II-A", icon: SHIELD, cost: 1, unlock-level: 6, requires: [i], effects: {health: 6}}
+  ii_b: {name: "&dCrystal Guardian II-B", icon: SHIELD, cost: 1, unlock-level: 6, requires: [i], effects: {owner-resist: 0.6}}
+  iii_a: {name: "&dCrystal Guardian III-A", icon: SHIELD, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 12}}
+  iii_b: {name: "&dCrystal Guardian III-B", icon: SHIELD, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {owner-resist: 1.2}}
+  iv: {name: "&dCrystal Guardian IV", icon: AMETHYST_SHARD, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 8, owner-resist: 0.8}}
+  v: {name: "&dCrystal Guardian V", icon: AMETHYST_SHARD, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 16, owner-resist: 1.6}}

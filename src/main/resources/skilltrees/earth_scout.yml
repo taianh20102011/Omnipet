@@ -1,0 +1,10 @@
+name: "&6Earth Scout"
+icon: STONE
+nodes:
+  i: {name: "&6Earth Scout I", icon: STONE, cost: 1, unlock-level: 2, effects: {speed: 0.012}}
+  ii_a: {name: "&6Earth Scout II-A", icon: FEATHER, cost: 1, unlock-level: 6, requires: [i], effects: {speed: 0.018}}
+  ii_b: {name: "&6Earth Scout II-B", icon: FEATHER, cost: 1, unlock-level: 6, requires: [i], effects: {auto-pickup: 3}}
+  iii_a: {name: "&6Earth Scout III-A", icon: FEATHER, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {speed: 0.036}}
+  iii_b: {name: "&6Earth Scout III-B", icon: FEATHER, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {auto-pickup: 6}}
+  iv: {name: "&6Earth Scout IV", icon: STONE, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {speed: 0.024, auto-pickup: 4}}
+  v: {name: "&6Earth Scout V", icon: STONE, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {speed: 0.048, auto-pickup: 8}}

@@ -1,0 +1,12 @@
+# OmniPets - effects.yml : hiệu ứng kỹ năng tùy chỉnh (chỉnh bằng web editor -> tab "Effects").
+# Dùng id ở đây làm key trong "effects" của node cây kỹ năng.
+# Loại: OWNER_ATTRIBUTE, PET_ATTRIBUTE, OWNER_POTION, HIT_POTION, AURA_DAMAGE, HEAL_PET_ON_HIT, XP_MULT
+effects:
+  armor-owner: {label: "Giáp cho chủ", type: OWNER_ATTRIBUTE, attribute: armor, per-value: 1}
+  luck-owner: {label: "May mắn cho chủ", type: OWNER_ATTRIBUTE, attribute: luck, per-value: 1}
+  night-vision-owner: {label: "Nhìn đêm cho chủ", type: OWNER_POTION, potion: night_vision, amplifier: 0, seconds: 15, interval: 10}
+  poison-hit: {label: "Độc khi đánh (giây)", type: HIT_POTION, potion: poison, amplifier: 0, per-value: 1}
+  lifesteal: {label: "Hút máu (hp/đòn)", type: HEAL_PET_ON_HIT, per-value: 1}
+  thorn-aura: {label: "Gai quanh pet (sát thương)", type: AURA_DAMAGE, radius: 4, interval: 2, per-value: 1, particle: CRIT}
+  xp-boost: {label: "Tăng XP (%)", type: XP_MULT, per-value: 1}
+  knockback-resist: {label: "Chống đẩy lùi", type: PET_ATTRIBUTE, attribute: knockback_resistance, per-value: 0.1}

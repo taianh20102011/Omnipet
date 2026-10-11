@@ -1,0 +1,145 @@
+# OmniPets 1.1 - config.yml  (chỉnh bằng tay hoặc /omnipets editor)
+settings:
+  language: vi           # mặc định: vi, en (thêm file vào plugins/OmniPets/lang/ để có ngôn ngữ khác)
+  prefix: "&d[OmniPets]&r "
+  max-pets: 3
+  max-active: 1
+  follow-distance: 4.0
+  teleport-distance: 24.0
+  join-delay-ticks: 20   # tăng lên (vd 60) khi dùng MySQL đồng bộ nhiều server
+
+database:
+  type: sqlite           # sqlite | mysql
+  mysql:
+    host: localhost
+    port: 3306
+    name: omnipets
+    user: root
+    password: ""
+    ssl: false
+
+hunger:
+  enabled: true
+  decay-per-minute: 2
+  feed-items:
+    BEEF: 20
+    COOKED_BEEF: 35
+    BREAD: 15
+    APPLE: 10
+    GOLDEN_CARROT: 40
+
+xp:
+  base: 40
+  max-level: 50
+  per-kill: 6
+  aura-per-pulse: 1
+
+ride:
+  ground-speed: 0.30
+  fly-speed: 0.60
+
+behaviors:
+  combat-cooldown-ticks: 20
+  protect-pvp: false
+  aggressive: {radius: 12}
+  protect: {radius: 16}
+  farm: {radius: 6, interval-ticks: 40, bonemeal-chance: 0.05}
+  aura-farming:
+    radius: 6
+    interval-ticks: 40
+    damage: 3.0
+    effect-seconds: 6
+    effects: {REGENERATION: 0, SPEED: 0}
+
+trade:
+  enabled: true          # giá > 0 cần Vault + plugin economy
+
+animation:
+  enabled: true
+  max-active: 60         # số animation chạy cùng lúc tối đa (chống lag)
+
+citizens:
+  npc-name: "PetKeeper"  # chuột phải NPC Citizens có tên này -> mở menu /petstore ("" = tắt)
+
+dragon:
+  enabled: false         # bật/tắt thuần hóa & cưỡi Rồng Ender (thử nghiệm)
+  tame-max-health-percent: 30
+
+web:
+  enabled: true
+  host: "127.0.0.1"
+  port: 8765
+  public-url: ""
+
+# Loại pet. entity = mob vanilla.
+# model.provider: none | modelengine | bettermodel | mythicmobs | itemsadder
+#   modelengine/bettermodel: gắn model lên mob vanilla (id = tên model, stages = đổi model theo cấp)
+#   mythicmobs/itemsadder: model.id là id mob/custom entity sẽ được spawn làm pet
+# animations: (tùy chọn) ghi đè animation theo sự kiện cho riêng loại pet, vd  animations: {level-up: gold-dust-ring}
+# skilltrees: danh sách tên cây hoặc mẫu: "*" = tất cả, "*_tanker", "fire_*"
+pets:
+  capybara:
+    display: "&6Capybara"
+    entity: PIG
+    model: {provider: none, id: capybara, hide-base: true}
+    tame-item: CARROT
+    tame-chance: 0.35
+    rideable: true
+    flyable: false
+    backpack-rows: 2
+    base: {health: 20, damage: 3, speed: 0.25}
+    per-level: {health: 1.0, damage: 0.4, speed: 0.001}
+    stages: {1: 0.7, 10: 0.85, 25: 1.0, 40: 1.3}
+    skilltrees: [tanker, dps, support, "*_tanker", "*_guardian", "*_healer", "*_collector"]
+  chameleon:
+    display: "&aChameleon"
+    entity: TURTLE
+    model: {provider: none, id: chameleon, hide-base: true}
+    tame-item: SEAGRASS
+    tame-chance: 0.35
+    rideable: false
+    flyable: false
+    backpack-rows: 1
+    base: {health: 16, damage: 2, speed: 0.3}
+    per-level: {health: 0.8, damage: 0.35, speed: 0.002}
+    stages: {1: 0.8, 20: 1.0, 40: 1.2}
+    skilltrees: [dps, "*_striker", "*_hunter", "*_scout", "*_mystic"]
+  wolf-spirit:
+    display: "&bHồn Sói"
+    entity: WOLF
+    model: {provider: none, id: wolf_spirit, hide-base: true}
+    tame-item: BONE
+    tame-chance: 0.3
+    rideable: true
+    flyable: false
+    backpack-rows: 1
+    base: {health: 24, damage: 4, speed: 0.32}
+    per-level: {health: 1.2, damage: 0.6, speed: 0.001}
+    stages: {1: 0.8, 15: 1.0, 35: 1.4}
+    skilltrees: [tanker, dps, "*_bruiser", "*_striker", "*_hunter", "*_warden"]
+  sky-parrot:
+    display: "&dVẹt Trời"
+    entity: PARROT
+    model: {provider: none, id: sky_parrot, hide-base: true}
+    tame-item: WHEAT_SEEDS
+    tame-chance: 0.4
+    rideable: true
+    flyable: true
+    backpack-rows: 1
+    base: {health: 12, damage: 2, speed: 0.4}
+    per-level: {health: 0.6, damage: 0.3, speed: 0.002}
+    stages: {1: 1.0, 20: 1.6, 40: 2.2}
+    skilltrees: [dps, support, "*_scout", "*_healer", "*_collector", "*_mystic"]
+  ender-dragon:
+    display: "&5Rồng Ender"
+    entity: ENDER_DRAGON
+    model: {provider: none}
+    tame-item: DRAGON_BREATH
+    tame-chance: 0.25
+    rideable: true
+    flyable: true
+    backpack-rows: 3
+    base: {health: 60, damage: 8, speed: 0.5}
+    per-level: {health: 2.0, damage: 0.8, speed: 0.0}
+    stages: {1: 0.15, 15: 0.25, 30: 0.4, 45: 0.6}
+    skilltrees: ["*"]

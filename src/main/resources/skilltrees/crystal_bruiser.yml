@@ -1,0 +1,10 @@
+name: "&dCrystal Bruiser"
+icon: AMETHYST_SHARD
+nodes:
+  i: {name: "&dCrystal Bruiser I", icon: AMETHYST_SHARD, cost: 1, unlock-level: 2, effects: {health: 3, damage: 0.5}}
+  ii_a: {name: "&dCrystal Bruiser II-A", icon: IRON_AXE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 4.5, damage: 0.75}}
+  ii_b: {name: "&dCrystal Bruiser II-B", icon: IRON_AXE, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 1.05}}
+  iii_a: {name: "&dCrystal Bruiser III-A", icon: IRON_AXE, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 9, damage: 1.5}}
+  iii_b: {name: "&dCrystal Bruiser III-B", icon: IRON_AXE, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {damage: 2.1}}
+  iv: {name: "&dCrystal Bruiser IV", icon: AMETHYST_SHARD, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 6, damage: 2.4}}
+  v: {name: "&dCrystal Bruiser V", icon: AMETHYST_SHARD, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 12, damage: 4.8}}

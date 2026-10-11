@@ -1,0 +1,10 @@
+name: "&4Blood Collector"
+icon: REDSTONE
+nodes:
+  i: {name: "&4Blood Collector I", icon: REDSTONE, cost: 1, unlock-level: 2, effects: {auto-pickup: 2}}
+  ii_a: {name: "&4Blood Collector II-A", icon: HOPPER, cost: 1, unlock-level: 6, requires: [i], effects: {auto-pickup: 3}}
+  ii_b: {name: "&4Blood Collector II-B", icon: HOPPER, cost: 1, unlock-level: 6, requires: [i], effects: {speed: 0.012}}
+  iii_a: {name: "&4Blood Collector III-A", icon: HOPPER, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {auto-pickup: 6}}
+  iii_b: {name: "&4Blood Collector III-B", icon: HOPPER, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {speed: 0.024}}
+  iv: {name: "&4Blood Collector IV", icon: REDSTONE, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {auto-pickup: 4, speed: 0.016}}
+  v: {name: "&4Blood Collector V", icon: REDSTONE, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {auto-pickup: 8, speed: 0.032}}

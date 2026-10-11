@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OmniPets Editor</title>
+<style>
+:root{--bg:#0d1017;--card:#161a24;--ink:#eef0f6;--mute:#9aa2b5;--line:#252b3a;--acc:#a78bfa;--acc2:#2dd4bf;--bad:#f87171}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px system-ui,sans-serif}
+header{display:flex;gap:8px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5;flex-wrap:wrap}
+header b{margin-right:12px}#st{margin-left:auto;font-size:13px}
+button,select,input,textarea{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+button{cursor:pointer}button:hover{border-color:var(--acc)}button.on,button.pri{background:var(--acc);color:#10101a;border-color:var(--acc)}button.bad{color:var(--bad)}
+input[type=number]{width:90px}label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--mute)}
+main{padding:16px}.cols{display:grid;grid-template-columns:260px 1fr;gap:16px}@media(max-width:800px){.cols{grid-template-columns:1fr}}
+aside{display:flex;flex-direction:column;gap:8px;max-height:80vh}#tl{overflow:auto;display:flex;flex-direction:column;gap:4px}
+.item{padding:8px 10px;border:1px solid var(--line);border-radius:8px;cursor:pointer;background:var(--card);display:flex;flex-direction:column}.item.on{border-color:var(--acc)}.item small{color:var(--mute)}
+.bar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin:6px 0}.grow{flex:1;min-width:140px}
+.node{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px}
+.chip{display:inline-flex;gap:6px;background:#222838;border-radius:99px;padding:2px 10px;margin:2px;font-size:12px}.chip a{cursor:pointer;color:var(--bad)}
+.mute{color:var(--mute)}.pv{display:flex;gap:6px;align-items:flex-start;overflow:auto;padding-bottom:8px}.col{display:flex;flex-direction:column;gap:6px}
+.pn{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-width:130px}.pn small{display:block;color:var(--mute)}.arr{align-self:center;color:var(--mute)}
+textarea{width:100%;height:70vh;font:13px ui-monospace,monospace;margin-top:10px}
+</style>
+<header><b>OmniPets Editor</b>
+<button id="t-trees" onclick="show('trees')">Skill trees</button><button id="t-eff" onclick="show('eff')">Effects</button><button id="t-ani" onclick="show('ani')">Animations</button><button id="t-raw" onclick="show('raw')">File thô</button>
+<span id="st"></span></header>
+<main id="main"></main>
+<datalist id="dl-mat"></datalist><datalist id="dl-attr"></datalist><datalist id="dl-pot"></datalist><datalist id="dl-part"></datalist><datalist id="dl-eff"></datalist><datalist id="dl-anim"></datalist><datalist id="dl-snd"></datalist>
+<script>
+const T=new URLSearchParams(location.search).get('t'),$=s=>document.querySelector(s);
+async function api(p,o){const r=await fetch(p+(p.includes('?')?'&':'?')+'t='+T,o),tx=await r.text();let j;try{j=JSON.parse(tx)}catch(e){j={raw:tx}}if(!r.ok)throw new Error(j.error||j.raw||r.status);return j}
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),strip=s=>String(s).replace(/&[0-9a-fk-or]/gi,'');
+const status=(m,bad)=>{const s=$('#st');s.textContent=m;s.style.color=bad?'var(--bad)':'var(--acc2)'};
+let META,TREES=[],TREE=null,EFF=null;
+const fill=(id,a)=>$('#'+id).innerHTML=a.map(x=>`<option value="${esc(x)}">`).join('');
+function fillLists(){fill('dl-mat',META.materials);fill('dl-attr',META.attributes);fill('dl-pot',META.potions);fill('dl-part',META.particles);fill('dl-eff',META.effectKeys);fill('dl-anim',META.animations);fill('dl-snd',META.sounds)}
+async function init(){META=await api('/api/meta');fillLists();show('trees')}
+function show(t){['trees','eff','ani','raw'].forEach(x=>$('#t-'+x).className=x===t?'on':'');status('');stopPv();({trees:loadTrees,eff:loadEff,ani:loadAni,raw:loadRaw})[t]().catch(e=>status(e.message,1))}
+// ---------- skill trees ----------
+async function loadTrees(){TREES=await api('/api/trees');$('#main').innerHTML=`<div class="cols"><aside><input id="tf" placeholder="Lọc cây..." oninput="filt()"><button onclick="newTree()">+ Cây mới</button><div id="tl"></div></aside><section id="te"><p class="mute">Chọn một cây để chỉnh sửa. Mỗi server có bộ cây riêng (plugins/OmniPets/skilltrees).</p></section></div>`;filt();if(TREE)renderTree()}
+function filt(){const q=($('#tf')?.value||'').toLowerCase();$('#tl').innerHTML=TREES.filter(t=>(t.id+t.name).toLowerCase().includes(q)).map(t=>`<div class="item ${TREE&&TREE.id===t.id?'on':''}" onclick="openTree('${t.id}')">${esc(strip(t.name))}<small>${t.id} · ${t.nodes} node</small></div>`).join('')}
+async function openTree(id){try{TREE=await api('/api/tree?id='+id);renderTree();filt()}catch(e){status(e.message,1)}}
+function newTree(){const id=(prompt('ID cây (a-z, 0-9, _):')||'').trim();if(!/^[a-z0-9_]{1,40}$/.test(id))return;TREE={id,name:'&aCây mới',icon:'BOOK',nodes:[{id:'root',name:'&7Node đầu',icon:'PAPER',cost:1,unlockLevel:1,requires:[],inherit:'',effects:{}}]};renderTree()}
+function renderTree(){const t=TREE;$('#te').innerHTML=`<div class="bar"><b>${esc(t.id)}</b><span style="flex:1"></span><button class="bad" onclick="delTree()">Xóa cây</button><button class="pri" onclick="saveTree()">Lưu &amp; reload</button></div>
+<div class="row"><label class="grow">Tên (hỗ trợ &amp;màu)<input value="${esc(t.name)}" oninput="TREE.name=this.value"></label><label>Icon<input list="dl-mat" value="${esc(t.icon)}" oninput="TREE.icon=this.value"></label></div>
+<h4>Xem trước</h4><div id="pv" class="pv"></div><h4>Node (${t.nodes.length}/45)</h4><div id="nodes"></div><button onclick="addNode()">+ Node</button>`;renderNodes();preview()}
+function renderNodes(){$('#nodes').innerHTML=TREE.nodes.map((n,i)=>{const o=TREE.nodes.filter(x=>x.id!==n.id);return `<div class="node"><div class="row"><b>${esc(n.id)}</b><input class="grow" value="${esc(n.name)}" oninput="TREE.nodes[${i}].name=this.value;preview()"><button class="bad" onclick="delNode(${i})">✕</button></div>
+<div class="row"><label>Icon<input list="dl-mat" value="${esc(n.icon)}" oninput="TREE.nodes[${i}].icon=this.value"></label><label>Giá (điểm)<input type="number" min="0" value="${n.cost}" oninput="TREE.nodes[${i}].cost=+this.value;preview()"></label><label>Cấp yêu cầu<input type="number" min="1" value="${n.unlockLevel}" oninput="TREE.nodes[${i}].unlockLevel=+this.value;preview()"></label>
+<label>Inherit (thay thế node)<select onchange="TREE.nodes[${i}].inherit=this.value;preview()"><option value="">—</option>${o.map(x=>`<option ${x.id===n.inherit?'selected':''}>${x.id}</option>`).join('')}</select></label></div>
+<div class="row"><span class="mute">Yêu cầu:</span>${n.requires.map(r=>`<span class="chip">${esc(r)}<a onclick="rmReq(${i},'${r}')">×</a></span>`).join('')}<select onchange="addReq(${i},this.value)"><option value="">+ thêm</option>${o.filter(x=>!n.requires.includes(x.id)).map(x=>`<option>${x.id}</option>`).join('')}</select></div>
+<div>${Object.entries(n.effects).map(([k,v])=>`<div class="row"><input list="dl-eff" value="${esc(k)}" onchange="renameEff(${i},'${k}',this.value)"><input type="number" step="any" value="${v}" oninput="TREE.nodes[${i}].effects['${k}']=+this.value"><button onclick="delEff(${i},'${k}')">✕</button></div>`).join('')}<button onclick="addEff(${i})">+ Effect</button></div></div>`}).join('')}
+function preview(){const m={};TREE.nodes.forEach(n=>m[n.id]=n);const d={};const dep=(id,s=new Set())=>{if(d[id]!=null)return d[id];if(s.has(id))return 0;s.add(id);const n=m[id];return d[id]=n&&n.requires.length?1+Math.max(...n.requires.map(r=>dep(r,s))):0};
+TREE.nodes.forEach(n=>dep(n.id));const c={};TREE.nodes.forEach(n=>(c[d[n.id]]??=[]).push(n));
+$('#pv').innerHTML=Object.keys(c).sort((a,b)=>a-b).map(k=>`<div class="col">${c[k].map(n=>`<div class="pn" title="${esc(n.requires.join(', '))}"><b>${esc(strip(n.name))}</b><small>${n.cost} điểm · Lv.${n.unlockLevel}${n.inherit?' · thay '+esc(n.inherit):''}</small></div>`).join('')}</div>`).join('<div class="arr">→</div>')}
+function addNode(){if(TREE.nodes.length>=45)return status('Tối đa 45 node',1);const id=(prompt('ID node (a-z, 0-9, _):')||'').trim();if(!/^[a-z0-9_]{1,32}$/.test(id)||TREE.nodes.some(n=>n.id===id))return status('ID không hợp lệ hoặc đã tồn tại',1);TREE.nodes.push({id,name:'&7'+id,icon:'PAPER',cost:1,unlockLevel:1,requires:[],inherit:'',effects:{}});renderTree()}
+function delNode(i){const id=TREE.nodes[i].id;TREE.nodes.splice(i,1);TREE.nodes.forEach(n=>{n.requires=n.requires.filter(r=>r!==id);if(n.inherit===id)n.inherit=''});renderTree()}
+function addReq(i,v){if(v){TREE.nodes[i].requires.push(v);renderNodes();preview()}}
+function rmReq(i,v){TREE.nodes[i].requires=TREE.nodes[i].requires.filter(r=>r!==v);renderNodes();preview()}
+function addEff(i){const k=META.effectKeys.find(k=>!(k in TREE.nodes[i].effects));if(k){TREE.nodes[i].effects[k]=1;renderNodes()}}
+function delEff(i,k){delete TREE.nodes[i].effects[k];renderNodes()}
+function renameEff(i,o,v){v=v.toLowerCase().replace(/[^a-z0-9_-]/g,'');const e=TREE.nodes[i].effects,val=e[o];delete e[o];if(v)e[v]=val;renderNodes()}
+async function saveTree(){try{await api('/api/tree?id='+TREE.id,{method:'POST',body:JSON.stringify(TREE)});status('Đã lưu & reload');TREES=await api('/api/trees');filt()}catch(e){status(e.message,1)}}
+async function delTree(){if(!confirm('Xóa cây '+TREE.id+'? (file được đổi thành .yml.deleted)'))return;try{await api('/api/tree?id='+TREE.id,{method:'DELETE'});TREE=null;status('Đã xóa');loadTrees()}catch(e){status(e.message,1)}}
+// ---------- effects ----------
+const defParams=t=>Object.fromEntries(META.schema[t].map(f=>[f.key,f.kind==='num'?+f.def:f.def]));
+async function loadEff(){EFF=await api('/api/effects');renderEff()}
+function renderEff(){$('#main').innerHTML=`<div class="bar"><b>Skill effects</b><span class="mute">Có sẵn: ${EFF.builtin.map(b=>`<span class="chip">${b}</span>`).join('')}</span><span style="flex:1"></span><button onclick="addEffDef()">+ Effect mới</button><button class="pri" onclick="saveEff()">Lưu &amp; reload</button></div><div>${Object.entries(EFF.defs).map(([id,d])=>effCard(id,d)).join('')||'<p class="mute">Chưa có effect tùy chỉnh.</p>'}</div>`}
+function effCard(id,d){const sc=META.schema[d.type]||[];return `<div class="node"><div class="row"><b>${esc(id)}</b><input class="grow" value="${esc(d.label)}" oninput="EFF.defs['${id}'].label=this.value"><select onchange="EFF.defs['${id}'].type=this.value;EFF.defs['${id}'].params=defParams(this.value);renderEff()">${Object.keys(META.schema).map(t=>`<option ${t===d.type?'selected':''}>${t}</option>`).join('')}</select><button class="bad" onclick="delEffDef('${id}')">✕</button></div>
+<div class="row">${sc.map(f=>`<label>${esc(f.label)}<input ${f.kind==='num'?'type="number" step="any"':''} ${f.key==='attribute'?'list="dl-attr"':f.key==='potion'?'list="dl-pot"':f.key==='particle'?'list="dl-part"':f.key==='animation'?'list="dl-anim"':''} value="${esc(d.params[f.key]??f.def)}" oninput="EFF.defs['${id}'].params['${f.key}']=${f.kind==='num'?'+this.value':'this.value'}"></label>`).join('')}</div></div>`}
+function addEffDef(){const id=(prompt('ID effect (a-z, 0-9, _ -):')||'').trim();if(!/^[a-z0-9_-]{1,32}$/.test(id)||EFF.builtin.includes(id)||EFF.defs[id])return status('ID không hợp lệ hoặc đã tồn tại',1);EFF.defs[id]={label:id,type:'OWNER_ATTRIBUTE',params:defParams('OWNER_ATTRIBUTE')};renderEff()}
+function delEffDef(id){if(confirm('Xóa effect '+id+'? Node đang dùng nó sẽ bị lỗi khi lưu lại.')){delete EFF.defs[id];renderEff()}}
+async function saveEff(){try{await api('/api/effects',{method:'POST',body:JSON.stringify({defs:EFF.defs})});META=await api('/api/meta');fillLists();status('Đã lưu & reload')}catch(e){status(e.message,1)}}
+// ---------- file thô ----------
+async function loadRaw(){const l=await api('/list');$('#main').innerHTML=`<div class="bar"><select id="f" onchange="loadFile()">${l.map(n=>`<option>${n}</option>`).join('')}</select><button class="pri" onclick="saveFile()">Lưu &amp; reload</button></div><textarea id="ta" spellcheck="false"></textarea>`;loadFile()}
+async function loadFile(){const r=await fetch('/file?f='+encodeURIComponent($('#f').value)+'&t='+T);$('#ta').value=await r.text()}
+async function saveFile(){const r=await fetch('/save?f='+encodeURIComponent($('#f').value)+'&t='+T,{method:'POST',body:$('#ta').value});status(await r.text(),!r.ok)}
+// ---------- animations ----------
+const EVL={summon:'Triệu hồi',store:'Cất pet','level-up':'Lên cấp',evolve:'Tiến hóa',tame:'Thuần hóa',unlock:'Mở khóa kỹ năng',hit:'Mỗi đòn đánh','fire-hit':'Đòn thiêu đốt','slow-hit':'Đòn làm chậm','heal-owner':'Hồi máu chủ','aura-pulse':'Xung Aura Farming',harvest:'Thu hoạch (Farm)',mount:'Cưỡi pet'};
+const PC={FLAME:'#ff8a30',SOUL_FIRE_FLAME:'#3fe0ff',HEART:'#ff4d6d',END_ROD:'#f5f5ff',CRIT:'#d8d8d8',SNOWFLAKE:'#cfefff',HAPPY_VILLAGER:'#5be37d',TOTEM_OF_UNDYING:'#9be84a',ENCHANT:'#b69bff',PORTAL:'#b24dff'};
+const NUMF=[['count','Số hạt / tick',1,200],['duration','Thời lượng (tick, 20 = 1s)',0,200],['radius','Bán kính',0,32],['height','Chiều cao',0,32],['speed','Speed hạt',0,5],['volume','Âm lượng',0,4],['pitch','Cao độ',0.1,2],['size','Cỡ hạt DUST',0.1,10]];
+let ANI=null,AID=null,raf=null;
+async function loadAni(){ANI=await api('/api/animations');AID=null;renderAni()}
+function renderAni(){$('#main').innerHTML=`<div class="bar"><b>Animations</b><span class="mute">Hiệu ứng hạt + âm thanh; gắn vào sự kiện hoặc vào Effect (tab Effects).</span><span style="flex:1"></span><button onclick="newAni()">+ Animation</button><button class="pri" onclick="saveAni()">Lưu &amp; reload</button></div><div class="cols"><aside><div id="al"></div><h4>Gắn vào sự kiện</h4><div id="ev"></div></aside><section id="ae"><p class="mute">Chọn một animation để chỉnh và xem trước.</p></section></div>`;listAni();renderEv();if(AID)renderAniEd()}
+function listAni(){$('#al').innerHTML=Object.keys(ANI.anims).map(id=>`<div class="item ${id===AID?'on':''}" onclick="openAni('${id}')">${id}<small>${ANI.anims[id].shape} · ${ANI.anims[id].particle}</small></div>`).join('')}
+function renderEv(){const ids=Object.keys(ANI.anims);$('#ev').innerHTML=ANI.eventList.map(ev=>`<label>${EVL[ev]||ev}<select onchange="ANI.events['${ev}']=this.value"><option value="">— không —</option>${ids.map(i=>`<option ${ANI.events[ev]===i?'selected':''}>${i}</option>`).join('')}</select></label>`).join('')}
+function newAni(){const id=(prompt('ID animation (a-z, 0-9, _ -):')||'').trim();if(!/^[a-z0-9_-]{1,32}$/.test(id)||ANI.anims[id])return status('ID không hợp lệ hoặc đã tồn tại',1);ANI.anims[id]={shape:'RING',particle:'END_ROD',count:20,duration:20,radius:1.5,height:2,speed:0,volume:1,pitch:1,size:1,sound:'',color:''};AID=id;renderAni()}
+function openAni(id){AID=id;listAni();renderAniEd()}
+function renderAniEd(){const a=ANI.anims[AID];$('#ae').innerHTML=`<div class="row"><b>${esc(AID)}</b><span style="flex:1"></span><button class="bad" onclick="delAni()">Xóa</button></div><canvas id="cv" width="420" height="300" style="width:100%;max-width:420px;background:#0a0d13;border:1px solid var(--line);border-radius:12px"></canvas>
+<div class="row"><label>Shape<select onchange="ANI.anims[AID].shape=this.value">${ANI.shapes.map(s=>`<option ${s===a.shape?'selected':''}>${s}</option>`).join('')}</select></label><label>Particle<input list="dl-part" value="${esc(a.particle)}" oninput="ANI.anims[AID].particle=this.value.toUpperCase();listAni()"></label><label>Sound<input list="dl-snd" value="${esc(a.sound)}" oninput="ANI.anims[AID].sound=this.value"></label><label>Màu (cho DUST)<input placeholder="#rrggbb" value="${esc(a.color)}" oninput="ANI.anims[AID].color=this.value"></label></div>
+<div class="row">${NUMF.map(([k,l,lo,hi])=>`<label>${l}<input type="number" step="any" min="${lo}" max="${hi}" value="${a[k]}" oninput="ANI.anims[AID].${k}=+this.value"></label>`).join('')}</div><p class="mute">BEAM: tia từ pet tới mục tiêu (hợp với sự kiện hit). Xem trước chỉ mang tính minh họa; thử thật bằng lệnh /omnipets anim &lt;id&gt;.</p>`;startPv()}
+function delAni(){delete ANI.anims[AID];Object.keys(ANI.events).forEach(e=>{if(ANI.events[e]===AID)delete ANI.events[e]});AID=null;renderAni()}
+async function saveAni(){try{await api('/api/animations',{method:'POST',body:JSON.stringify({anims:ANI.anims,events:ANI.events})});META=await api('/api/meta');fillLists();status('Đã lưu & reload')}catch(e){status(e.message,1)}}
+function stopPv(){if(raf)cancelAnimationFrame(raf);raf=null}
+function pts(a,t){const P=[],n=Math.max(1,a.count|0),R=a.radius,H=a.height,fib=(i)=>{const y=1-2*(i+.5)/n,r=Math.sqrt(1-y*y),ph=i*2.399963;return[Math.cos(ph)*r,y,Math.sin(ph)*r]};
+switch(a.shape){
+case'RING':{const r=R*(.25+.75*t);for(let i=0;i<n;i++){const g=2*Math.PI*i/n+t*Math.PI;P.push([Math.cos(g)*r,H*t,Math.sin(g)*r])}break}
+case'SPIRAL':case'HELIX':{const arms=a.shape==='HELIX'?2:1;for(let k=0;k<arms;k++)for(let i=0;i<n;i++){const u=Math.min(1,t+i/n*.2),g=u*Math.PI*6+k*Math.PI;P.push([Math.cos(g)*R,H*u,Math.sin(g)*R])}break}
+case'BURST':case'SPHERE':{const r=a.shape==='BURST'?R*t:R;for(let i=0;i<n;i++){const d=fib(i);P.push([d[0]*r,.8+d[1]*r,d[2]*r])}break}
+case'PILLAR':{for(let i=0;i<n;i++){const g=2*Math.PI*i/n;P.push([Math.cos(g)*R,H*t,Math.sin(g)*R])}break}
+case'BEAM':{for(let i=0;i<n;i++){const f=n>1?i/(n-1):.5;P.push([-3+6*f,1,0])}break}}
+return P}
+function startPv(){stopPv();const frame=()=>{const cv=$('#cv');if(!cv||!ANI||!ANI.anims[AID]){raf=null;return}const g=cv.getContext('2d'),a=ANI.anims[AID],now=performance.now(),dur=Math.max(a.duration,0)*50,ph=dur?(now%(dur+500))/dur:1,t=Math.min(1,ph);
+g.clearRect(0,0,420,300);g.strokeStyle='#252b3a';g.beginPath();g.ellipse(210,215,110,34,0,0,7);g.stroke();g.fillStyle='#3b4258';g.fillRect(203,200,14,14);
+const ry=now/3000,col=(a.color&&/^#[0-9a-f]{6}$/i.test(a.color)&&a.particle==='DUST')?a.color:(PC[a.particle]||'#ffffff');g.fillStyle=col;g.globalAlpha=.9;
+if(ph<=1.0001)pts(a,t).forEach(([x,y,z])=>{const X=x*Math.cos(ry)-z*Math.sin(ry),Z=x*Math.sin(ry)+z*Math.cos(ry);g.beginPath();g.arc(210+X*38,208-y*38+Z*12,2.4,0,7);g.fill()});
+g.globalAlpha=1;raf=requestAnimationFrame(frame)};frame()}
+init().catch(e=>status(e.message,1));
+</script>
+</html>

@@ -1,0 +1,10 @@
+name: "&cFire Warden"
+icon: BLAZE_POWDER
+nodes:
+  i: {name: "&cFire Warden I", icon: BLAZE_POWDER, cost: 1, unlock-level: 2, effects: {health: 3, heal-owner: 0.2}}
+  ii_a: {name: "&cFire Warden II-A", icon: NETHERITE_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {health: 4.5, heal-owner: 0.3}}
+  ii_b: {name: "&cFire Warden II-B", icon: NETHERITE_CHESTPLATE, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 0.75, owner-resist: 0.3}}
+  iii_a: {name: "&cFire Warden III-A", icon: NETHERITE_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {health: 9, heal-owner: 0.6}}
+  iii_b: {name: "&cFire Warden III-B", icon: NETHERITE_CHESTPLATE, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {damage: 1.5, owner-resist: 0.6}}
+  iv: {name: "&cFire Warden IV", icon: BLAZE_POWDER, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {health: 6, heal-owner: 0.4, damage: 1, owner-resist: 0.4}}
+  v: {name: "&cFire Warden V", icon: BLAZE_POWDER, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {health: 12, heal-owner: 0.8, damage: 2, owner-resist: 0.8}}

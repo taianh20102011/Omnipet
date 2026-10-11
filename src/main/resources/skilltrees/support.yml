@@ -1,0 +1,7 @@
+name: "&aSupport"
+icon: GOLDEN_APPLE
+nodes:
+  scavenger: {name: "&eNhặt Đồ",   icon: HOPPER,       cost: 1, unlock-level: 3,  effects: {auto-pickup: 3}}
+  herbalist: {name: "&aThảo Dược", icon: FERN,         cost: 1, unlock-level: 5,  effects: {heal-owner: 1}}
+  medic:     {name: "&2Lương Y",   icon: GOLDEN_APPLE, cost: 3, unlock-level: 15, requires: [herbalist], inherit: herbalist, effects: {heal-owner: 3}}
+  swift:     {name: "&bNhanh Nhẹn", icon: FEATHER,     cost: 2, unlock-level: 10, requires: [scavenger], effects: {speed: 0.03}}

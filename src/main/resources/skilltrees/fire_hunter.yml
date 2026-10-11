@@ -1,0 +1,10 @@
+name: "&cFire Hunter"
+icon: BLAZE_POWDER
+nodes:
+  i: {name: "&cFire Hunter I", icon: BLAZE_POWDER, cost: 1, unlock-level: 2, effects: {damage: 0.5, speed: 0.008}}
+  ii_a: {name: "&cFire Hunter II-A", icon: BOW, cost: 1, unlock-level: 6, requires: [i], effects: {damage: 0.75, speed: 0.012}}
+  ii_b: {name: "&cFire Hunter II-B", icon: BOW, cost: 1, unlock-level: 6, requires: [i], effects: {speed: 0.015, fire-hit: 1.5}}
+  iii_a: {name: "&cFire Hunter III-A", icon: BOW, cost: 2, unlock-level: 12, requires: [ii_a], inherit: ii_a, effects: {damage: 1.5, speed: 0.024}}
+  iii_b: {name: "&cFire Hunter III-B", icon: BOW, cost: 2, unlock-level: 12, requires: [ii_b], inherit: ii_b, effects: {speed: 0.03, fire-hit: 3}}
+  iv: {name: "&cFire Hunter IV", icon: BLAZE_POWDER, cost: 3, unlock-level: 22, requires: [iii_a, iii_b], effects: {damage: 1, speed: 0.036, fire-hit: 2}}
+  v: {name: "&cFire Hunter V", icon: BLAZE_POWDER, cost: 4, unlock-level: 35, requires: [iv], inherit: iv, effects: {damage: 2, speed: 0.072, fire-hit: 4}}
